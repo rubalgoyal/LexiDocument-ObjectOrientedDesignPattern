@@ -3,7 +3,7 @@ package glyph;
 import window.Window;
 
 import javax.naming.OperationNotSupportedException;
-import java.awt.*;
+import java.awt.Point;
 
 public abstract class Composition extends CompositeGlyph{
     private Compositor compositor;

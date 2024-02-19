@@ -1,0 +1,99 @@
+
+@startuml
+package glyph {
+  abstract class Glyph {
+    - parent: Glyph
+    - bounds: Bounds
+    + draw(Window): void
+    + setSize(Window): void
+    + setParent(Glyph): void
+    + getParent(): Glyph
+    + getBounds(): Bounds
+    + intersects(Point): boolean
+    + insert(Glyph, int): void
+    + remove(Glyph): void
+    + child(int): Glyph
+    + compose(): void
+  }
+  abstract class CompositeGlyph {
+    - children: List<Glyph>
+    + getChildren(): List<Glyph>
+    + setChildren(List<Glyph>): void
+    + draw(Window): void
+    + insert(Glyph, int): void
+    + remove(Glyph): void
+    + child(int): Glyph
+  }
+
+  class Column {
+    + Column(Compositor)
+    + draw(Window): void
+    + setSize(Window): void
+    + setPosition(int, int): void
+    + moveCursor(Point, Glyph): Point
+    + adjustBounds(Point): void
+  }
+
+  class Row {
+      + Column(Compositor)
+      + draw(Window): void
+      + setSize(Window): void
+      + setPosition(int, int): void
+      + moveCursor(Point, Glyph): Point
+      + adjustBounds(Point): void
+    }
+
+
+    class Character {
+      + Column(Compositor)
+      + draw(Window): void
+      + setSize(Window): void
+      + setPosition(int, int): void
+      + moveCursor(Point, Glyph): Point
+      + adjustBounds(Point): void
+    }
+
+    class Rectangle {
+      + Column(Compositor)
+      + draw(Window): void
+      + setSize(Window): void
+      + setPosition(int, int): void
+      + moveCursor(Point, Glyph): Point
+      + adjustBounds(Point): void
+    }
+
+    Glyph <|-- CompositeGlyph
+    CompositeGlyph <|-- Composition
+    Composition <|-- Column
+    Composition <|-- Row
+    Glyph <|-- Character
+    Glyph <|-- Rectangle
+
+    abstract class Composition {
+        - compositor: Compositor
+        + moveCursor(Point, Glyph): Point
+        + setCompositor(Compositor): void
+        + getCompositor(): Compositor
+        + refactor(): void
+        + adjustBounds(Point): void
+      }
+
+    interface Compositor {
+        {abstract} void compose()
+        {abstract} void setComposition(Composition composition)
+    }
+
+    class SimpleCompositor {
+        - composition: Composition
+        - window: Window
+
+        + SimpleCompositor(Window window)
+        {abstract} void compose()
+        {abstract} void setComposition(Composition composition)
+    }
+
+    Composition <|-- Compositor
+    Compositor <|.. SimpleCompositor : implements
+}
+@enduml
+

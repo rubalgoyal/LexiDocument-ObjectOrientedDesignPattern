@@ -3,12 +3,12 @@ package glyph;
 import window.Window;
 
 import javax.naming.OperationNotSupportedException;
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class Row extends Composition{
 
-    public Row(Compositor compositor) throws OperationNotSupportedException {
+    public Row(Compositor compositor) {
         setParent(null);
         getBounds().setPointDimensions(0, 0);
         Point point = new Point(0, 0);
@@ -40,15 +40,6 @@ public class Row extends Composition{
         catch (Exception e){
             getBounds().setPointDimensions(width, height);
         }
-    }
-
-    @Override
-    public void setParent(Glyph glyph) throws OperationNotSupportedException {
-
-    }
-
-    public void setPosition(int x, int y){
-        getBounds().getUpperLeft().setLocation(x, y);
     }
 
     public Point moveCursor(Point cursor, Glyph child){

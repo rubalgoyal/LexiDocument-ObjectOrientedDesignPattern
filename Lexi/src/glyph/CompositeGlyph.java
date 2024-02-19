@@ -1,14 +1,11 @@
 package glyph;
 
 import window.Window;
-
 import javax.naming.OperationNotSupportedException;
-import java.awt.*;
 import java.util.ArrayList;
 
-public abstract class CompositeGlyph implements Glyph{
+public abstract class CompositeGlyph extends Glyph{
     private ArrayList<Glyph> children;
-    private Bounds bounds = new Bounds(new Point(0,0), 0,0);
     public ArrayList<Glyph> getChildren() {
         return children;
     }
@@ -23,16 +20,6 @@ public abstract class CompositeGlyph implements Glyph{
                 children.get(i).draw(window);
             }
         }
-    }
-
-    @Override
-    public Bounds getBounds() {
-        return this.bounds;
-    }
-
-    @Override
-    public boolean intersects(Point point) {
-        return false;
     }
 
     @Override
@@ -57,21 +44,6 @@ public abstract class CompositeGlyph implements Glyph{
             throw new IndexOutOfBoundsException("No child at position: out of bounds");
 
         return children.get(position);
-    }
-
-    @Override
-    public Glyph getParent() {
-        return null;
-    }
-
-    @Override
-    public void compose() {
-
-    }
-
-    @Override
-    public void setSize(Window window) {
-
     }
 
 }

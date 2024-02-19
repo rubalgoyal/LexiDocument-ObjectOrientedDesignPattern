@@ -1,13 +1,14 @@
 package glyph;
 
 import window.Window;
-import java.awt.Point;
 
-public class SimpleCompositor implements Compositor{
+import java.awt.*;
+
+public class ArrayCompositor implements Compositor{
     private Composition composition;
     private Window window;
 
-    public SimpleCompositor(Window window){
+    public ArrayCompositor(Window window){
         this.window = window;
     }
 

@@ -42,10 +42,6 @@ public class Column extends Composition{
         }
     }
 
-    @Override
-    public void setParent(Glyph glyph) throws OperationNotSupportedException {
-
-    }
 
     public void setPosition(int x, int y){
         getBounds().getUpperLeft().setLocation(x, y);
