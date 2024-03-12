@@ -42,36 +42,43 @@ public class Tests {
     }
 
 
-    public static void hw2test() throws OperationNotSupportedException {
-        // create objects
-        Window sw = new SwingWindow("Lexi");
-        SimpleCompositor sc1 = new SimpleCompositor(sw);
-        SimpleCompositor sc2 = new SimpleCompositor(sw);
-        SimpleCompositor sc3 = new SimpleCompositor(sw);
-        SimpleCompositor sc4 = new SimpleCompositor(sw);
-        Row row1 = new Row(sc1);
-        Column col1 = new Column(sc2);
-        Scroller scroll1 = new Scroller(sc3);
-        Border border1 = new Border(sc4, 2);
+    public static void hw2tests() throws OperationNotSupportedException {
+        Window swingWindow = new SwingWindow("Lexi");
+        Row row1 = new Row(new SimpleCompositor(swingWindow));
+        Row row2 = new Row(new SimpleCompositor(swingWindow));
+        Column column1 = new Column(new SimpleCompositor(swingWindow));
+        Column column2 = new Column(new SimpleCompositor(swingWindow));
+        Scroller scroll1 = new Scroller(new SimpleCompositor(swingWindow));
+        Border border1 = new Border(new SimpleCompositor(swingWindow), 2);
+        Scroller scroll2 = new Scroller(new SimpleCompositor(swingWindow));
+        Border border2 = new Border(new SimpleCompositor(swingWindow), 2);
 
-        char[] characters = {'T', 'h', 'i', 's', ' ', 'i', 'n', 's', 'i', 'd', 'e', ' ', 't', 'h', 'e', ' ', 'B', 'o', 'r', 'd', 'e', 'r'};
-        Glyph[] glyphs = new Glyph[characters.length];
-
-        for (int i = 0; i < characters.length; i++) {
-            glyphs[i] = new Character(characters[i]);
-        }
+        char[] characters = {' ', 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 'r', 'e', 'c', 't', 'a', 'n', 'g', 'l',
+                              'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 'a', ' ', 'b', 'o','r','d','e','r'
+        };
 
         try {
             for(int i = 0; i < characters.length; i++){
-                row1.insertAtPosition(glyphs[i], i);
+                row1.insertAtPosition(new Character(characters[i]), i);
             }
             scroll1.insert(row1);
             border1.insert(scroll1);
-            row1.insertAtPosition(col1, 3);
+            column1.insertAtPosition(new Rectangle(50,50),characters.length+10);
+            column1.insertAtPosition(new Character('X'),characters.length+20);
+            row2.insertAtPosition(new Character('A'),0);
+            row2.insertAtPosition(new Character('l'),1);
+            row2.insertAtPosition(new Character('i'),2);
+            row2.insertAtPosition(new Character('c'),3);
+            row2.insertAtPosition(new Character('e'),4);
+            scroll2.insert(row2);
+            border2.insert(scroll2);
+            column1.insertAtPosition(row2, characters.length+21);
+            row1.insertAtPosition(column1, 0);
+
         }
         catch (OperationNotSupportedException e) {
             System.out.println("OperationNotSupportedException caught");
         }
-        sw.setContents(border1);
+        swingWindow.setContents(border1);
     }
 }

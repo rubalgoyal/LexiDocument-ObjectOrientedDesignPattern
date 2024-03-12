@@ -19,8 +19,9 @@ public class SimpleCompositor implements Compositor{
         Glyph child = null;
         Glyph origin = null;
 
-        while (!flag){
-            try{
+        // Just loop until reaches the end
+        try{
+            while (true){
                 if(composition.getChild(position) != null){
                     child = composition.getChild(position);
                     if (origin == null)
@@ -32,11 +33,10 @@ public class SimpleCompositor implements Compositor{
                     cursor = composition.moveCursor(cursor, child);
                 }
                 composition.adjustBounds(cursor);
-
-            } catch (IndexOutOfBoundsException e){
-                flag = true;
+                position++;
             }
-            position++;
+        } catch (IndexOutOfBoundsException e){
+
         }
 
         if(origin != null)
