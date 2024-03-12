@@ -23,7 +23,7 @@ public abstract class CompositeGlyph extends Glyph{
     }
 
     @Override
-    public void insert(Glyph glyph, int position) throws IndexOutOfBoundsException, OperationNotSupportedException {
+    public void insertAtPosition(Glyph glyph, int position) throws IndexOutOfBoundsException, OperationNotSupportedException {
         while(position > children.size()){
             children.add(children.size(), null);
 
@@ -39,7 +39,7 @@ public abstract class CompositeGlyph extends Glyph{
     }
 
     @Override
-    public Glyph child(int position){
+    public Glyph getChild(int position){
         if(position >= children.size() || position < 0)
             throw new IndexOutOfBoundsException("No child at position: out of bounds");
 

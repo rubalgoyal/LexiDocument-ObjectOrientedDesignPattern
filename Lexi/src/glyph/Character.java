@@ -7,7 +7,6 @@ import window.Window;
 public class Character extends Glyph {
 
     private char character;
-    private Bounds bounds = new Bounds(new Point(0, 0), 0, 0);
 
     public Character(char character) {
         getBounds().setPointDimensions(0, 0);

@@ -21,8 +21,8 @@ public class Column extends Composition{
         super.draw(window);
     }
 
-    public Glyph child(int position){
-        return super.child(position);
+    public Glyph getChild(int position){
+        return super.getChild(position);
     }
 
     public void setSize(Window window){
@@ -34,7 +34,7 @@ public class Column extends Composition{
             for(int i = 1; i> -1; i++){
                 width = Math.max(width, child.getBounds().getWidth());
                 height += child.getBounds().getHeight();
-                child = this.child(i);
+                child = this.getChild(i);
             }
         }
         catch (Exception e){
@@ -42,10 +42,6 @@ public class Column extends Composition{
         }
     }
 
-
-    public void setPosition(int x, int y){
-        getBounds().getUpperLeft().setLocation(x, y);
-    }
 
     public Point moveCursor(Point cursor, Glyph child){
         cursor.y = child.getBounds().getUpperLeft().y + child.getBounds().getHeight();

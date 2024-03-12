@@ -21,12 +21,12 @@ public abstract class Composition extends CompositeGlyph{
         super.draw(window);
     }
 
-    public void refactor(){
-        boolean isfound = false;
+    public void reformat(){
+        boolean parentFound = false;
         Glyph current = this;
-        while (!isfound){
+        while (!parentFound){
             if(current.getParent() == null){
-                isfound = true;
+                parentFound = true;
                 current.compose();
             }
             else {
@@ -35,15 +35,15 @@ public abstract class Composition extends CompositeGlyph{
         }
     }
 
-    public void insert(Glyph glyph, int position) throws OperationNotSupportedException {
-        super.insert(glyph, position);
+    public void insertAtPosition(Glyph glyph, int position) throws OperationNotSupportedException {
+        super.insertAtPosition(glyph, position);
         glyph.setParent(this);
-        refactor();
+        reformat();
     }
 
     public void remove(Glyph glyph){
         super.remove(glyph);
-        refactor();
+        reformat();
     }
 
     public void compose(){

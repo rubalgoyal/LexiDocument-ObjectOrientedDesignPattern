@@ -2,7 +2,6 @@ package glyph;
 
 import window.Window;
 
-import javax.naming.OperationNotSupportedException;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -22,8 +21,8 @@ public class Row extends Composition{
         super.draw(window);
     }
 
-    public Glyph child(int position){
-        return super.child(position);
+    public Glyph getChild(int position){
+        return super.getChild(position);
     }
 
     public void setSize(Window window){
@@ -34,7 +33,7 @@ public class Row extends Composition{
             for(int i = 1; i > -1; i++){
                 width += child.getBounds().getWidth();
                 height = Math.max(height, child.getBounds().getHeight());
-                child = this.child(i);
+                child = this.getChild(i);
             }
         }
         catch (Exception e){

@@ -21,14 +21,14 @@ public class SimpleCompositor implements Compositor{
 
         while (!flag){
             try{
-                if(composition.child(position) != null){
-                    child = composition.child(position);
+                if(composition.getChild(position) != null){
+                    child = composition.getChild(position);
                     if (origin == null)
                         origin = child;
 
                     child.setSize(window);
                     child.getBounds().getUpperLeft().setLocation(cursor.x, cursor.y);
-                    composition.child(position).compose();
+                    composition.getChild(position).compose();
                     cursor = composition.moveCursor(cursor, child);
                 }
                 composition.adjustBounds(cursor);

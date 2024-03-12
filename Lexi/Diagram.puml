@@ -9,10 +9,9 @@ package glyph {
     + setParent(Glyph): void
     + getParent(): Glyph
     + getBounds(): Bounds
-    + intersects(Point): boolean
-    + insert(Glyph, int): void
+    + insertAtPosition(Glyph, int): void
     + remove(Glyph): void
-    + child(int): Glyph
+    + getChild(int): Glyph
     + compose(): void
   }
   abstract class CompositeGlyph {
@@ -20,63 +19,78 @@ package glyph {
     + getChildren(): List<Glyph>
     + setChildren(List<Glyph>): void
     + draw(Window): void
-    + insert(Glyph, int): void
+    + insertAtPosition(Glyph, int): void
     + remove(Glyph): void
-    + child(int): Glyph
+    + getChild(int): Glyph
   }
 
-  class Column {
-    + Column(Compositor)
-    + draw(Window): void
-    + setSize(Window): void
-    + setPosition(int, int): void
-    + moveCursor(Point, Glyph): Point
-    + adjustBounds(Point): void
-  }
 
-  class Row {
-      + Column(Compositor)
-      + draw(Window): void
-      + setSize(Window): void
-      + setPosition(int, int): void
-      + moveCursor(Point, Glyph): Point
-      + adjustBounds(Point): void
-    }
-
-
-    class Character {
-      + Column(Compositor)
-      + draw(Window): void
-      + setSize(Window): void
-      + setPosition(int, int): void
-      + moveCursor(Point, Glyph): Point
-      + adjustBounds(Point): void
-    }
-
-    class Rectangle {
-      + Column(Compositor)
-      + draw(Window): void
-      + setSize(Window): void
-      + setPosition(int, int): void
-      + moveCursor(Point, Glyph): Point
-      + adjustBounds(Point): void
-    }
-
-    Glyph <|-- CompositeGlyph
-    CompositeGlyph <|-- Composition
-    Composition <|-- Column
-    Composition <|-- Row
-    Glyph <|-- Character
-    Glyph <|-- Rectangle
-
-    abstract class Composition {
-        - compositor: Compositor
-        + moveCursor(Point, Glyph): Point
-        + setCompositor(Compositor): void
-        + getCompositor(): Compositor
-        + refactor(): void
-        + adjustBounds(Point): void
+      class Column {
+          +Column(compositor: Compositor) throws OperationNotSupportedException
+          +draw(window: Window)
+          +child(position: int): Glyph
+          +setSize(window: Window)
+          +moveCursor(cursor: Point, child: Glyph): Point
+          +adjustBounds(cursor: Point)
       }
+
+
+
+      class Row {
+          +Row(compositor: Compositor)
+          +draw(window: Window)
+          +child(position: int): Glyph
+          +setSize(window: Window)
+          +moveCursor(cursor: Point, child: Glyph): Point
+          +adjustBounds(cursor: Point)
+      }
+
+
+
+
+        class Character {
+
+            -char character
+            +Character(character: char)
+            +draw(window: Window)
+            +setSize(window: Window)
+        }
+
+
+
+        class Rectangle {
+
+            +Rectangle(width: int, height: int)
+            +draw(window: Window)
+            +setSize(window: Window)
+        }
+
+
+
+
+        abstract class Composition {
+            -Compositor compositor
+            +setCompositor(compositor: Compositor): void
+            +getCompositor(): Compositor
+            +draw(window: Window): void
+            +reformat(): void
+            +insert(glyph: Glyph, position: int): void
+            +remove(glyph: Glyph): void
+            +compose(): void
+            +adjustBounds(cursor: Point): void
+            +moveCursor(cursor: Point, child: Glyph): Point
+        }
+
+            class Bounds {
+                    - Point upperLeft
+                    - int width
+                    - int height
+                    + Bounds(Point upperLeft, int width, int height)
+                    + Point getUpperLeft()
+                    + int getWidth()
+                    + int getHeight()
+                    + void setPointDimensions(int width, int height)
+                }
 
     interface Compositor {
         {abstract} void compose()
@@ -92,8 +106,50 @@ package glyph {
         {abstract} void setComposition(Composition composition)
     }
 
-    Composition <|-- Compositor
+    Compositor <|-- Composition : compositor
+    Composition <|-- Compositor : composition
     Compositor <|.. SimpleCompositor : implements
+    Glyph <|-- CompositeGlyph
+    CompositeGlyph <|-- Composition
+    Composition <|-- Column
+    Composition <|-- Row
+    Glyph <|-- Character
+    Glyph <|-- Rectangle
+    Glyph "1" -- "1" Bounds : has
+
+
+}
+
+package window {
+    interface Window {
+        {abstract} void drawCharacter(char c, int x, int y)
+        {abstract} void drawRectangle(int x, int y, int width, int height)
+        {abstract} int charWidth(char c)
+        {abstract} int charHeight(char c)
+        {abstract} void setContents(Glyph glyph)
+    }
+
+    class SwingWindow {
+        - final int width = 200
+        - final int height = 200
+        - Window _window
+        - Glyph _glyph
+        - Pane _pane
+        - JFrame _jFrame
+        - Graphics _graphics
+        - FontMetrics _fm
+        - Pane
+        + void paintComponent(Graphics graphics)
+        + SwingWindow(String title)
+        + int charWidth(char c)
+        + int charHeight(char c)
+        + int charBaseline(char c)
+        + void drawCharacter(char c, int x, int y)
+        + void drawRectangle(int x, int y, int width, int height)
+        + void setContents(Glyph glyph)
+    }
+
+     Window <|.. SwingWindow : implements
 }
 @enduml
 

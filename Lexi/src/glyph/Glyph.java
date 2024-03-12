@@ -24,11 +24,7 @@ public abstract class Glyph {
         return bounds;
     }
 
-    public boolean intersects(Point point){
-        return bounds.getUpperLeft().equals(point);
-    }
-
-    public void insert(Glyph glyph, int position) throws OperationNotSupportedException {
+    public void insertAtPosition(Glyph glyph, int position) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("Not supported");
     }
 
@@ -36,7 +32,7 @@ public abstract class Glyph {
         throw new OperationNotSupportedException("Does not support children");
     }
 
-    public Glyph child(int position) throws OperationNotSupportedException {
+    public Glyph getChild(int position) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("Does not support children");
     }
 
