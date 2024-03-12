@@ -8,17 +8,16 @@ import java.util.ArrayList;
 public class Row extends Composition{
 
     public Row(Compositor compositor) {
-        setParent(null);
         getBounds().setPointDimensions(0, 0);
         Point point = new Point(0, 0);
         getBounds().getUpperLeft().setLocation(point);
-        setChildren(new ArrayList<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
     }
 
-    public void draw(Window window){
-        super.draw(window);
+    @Override
+    public void adjustBounds(Point cursor) {
+
     }
 
     public Glyph getChild(int position){
@@ -46,7 +45,4 @@ public class Row extends Composition{
         return cursor;
     }
 
-    public void adjustBounds(Point cursor){
-        getBounds().setPointDimensions(cursor.x - getBounds().getUpperLeft().x, getBounds().getHeight());
-    }
 }

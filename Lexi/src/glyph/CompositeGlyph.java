@@ -5,7 +5,7 @@ import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 
 public abstract class CompositeGlyph extends Glyph{
-    private ArrayList<Glyph> children;
+    private ArrayList<Glyph> children = new ArrayList<>();
     public ArrayList<Glyph> getChildren() {
         return children;
     }
@@ -38,7 +38,7 @@ public abstract class CompositeGlyph extends Glyph{
         }
     }
 
-    @Override
+
     public Glyph getChild(int position){
         if(position >= children.size() || position < 0)
             throw new IndexOutOfBoundsException("No child at position: out of bounds");

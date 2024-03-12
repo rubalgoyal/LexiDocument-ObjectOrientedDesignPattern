@@ -32,9 +32,9 @@ public abstract class Glyph {
         throw new OperationNotSupportedException("Does not support children");
     }
 
-    public Glyph getChild(int position) throws OperationNotSupportedException {
-        throw new OperationNotSupportedException("Does not support children");
-    }
+//    public Glyph getChild(int position) throws OperationNotSupportedException {
+//        throw new OperationNotSupportedException("Does not support children");
+//    }
 
     public void compose(){
 

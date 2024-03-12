@@ -67,4 +67,16 @@ public class SwingWindow implements Window {
         _jFrame.setVisible(true);
     }
 
+    public void addBorder(int x1, int y1, int x2, int y2, int width) {
+        _graphics.fillRect(x1,y1,x2-x1,width);                     // top
+        _graphics.fillRect(x1,y1+width,width,y2-y1-2*width);       // left
+        _graphics.fillRect(x2-width,y1+width,width,y2-y1-2*width); // right
+        _graphics.fillRect(x1,y2-width,x2-x1,width);               // bottom
+    }
+
+    public void addScrollBar(int x, int y, int width, int height) {
+        _graphics.drawRect(x,y,width,height);        // bar
+        _graphics.fillRect(x+2,y+2,width-3,width-3); // handle
+    }
+
 }
