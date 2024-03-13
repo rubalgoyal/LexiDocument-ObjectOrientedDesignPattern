@@ -105,9 +105,34 @@ package glyph {
         {abstract} void compose()
         {abstract} void setComposition(Composition composition)
     }
+    class Embellishment {
+            + moveCursor(cursor: Point, child: Glyph): Point
+            + adjustBounds(cursor: Point): void
+            + setSize(window: Window): void
+            + getChild(): Glyph
+            + insert(glyph: Glyph): void
+            + insert(glyph: Glyph, position: int): void
+            + remove(glyph: Glyph): void
+        }
+        class Border {
+                - thickness: int
 
-    Compositor <|-- Composition : compositor
-    Composition <|-- Compositor : composition
+                + Border(compositor: Compositor, thickness: int)
+                + draw(window: Window): void
+            }
+
+
+
+        class Scroller {
+            - width: int
+
+            + draw(window: Window): void
+        }
+
+
+
+    Compositor <|.. Glyph : uses
+    Composition <|-- Embellishment
     Compositor <|.. SimpleCompositor : implements
     Glyph <|-- CompositeGlyph
     CompositeGlyph <|-- Composition
@@ -115,38 +140,41 @@ package glyph {
     Composition <|-- Row
     Glyph <|-- Character
     Glyph <|-- Rectangle
+    Embellishment <|--- Border
+    Embellishment <|--- Scroller
     Glyph "1" -- "1" Bounds : has
-
 
 }
 
 package window {
     interface Window {
-        {abstract} void drawCharacter(char c, int x, int y)
-        {abstract} void drawRectangle(int x, int y, int width, int height)
-        {abstract} int charWidth(char c)
-        {abstract} int charHeight(char c)
-        {abstract} void setContents(Glyph glyph)
+        + drawCharacter(c: char, x: int, y: int): void
+        + drawRectangle(x: int, y: int, width: int, height: int): void
+        + charWidth(c: char): int
+        + charHeight(c: char): int
+        + setContents(glyph: Glyph): void
+        + addBorder(x1: int, y1: int, x2: int, y2: int, width: int): void
+        + addScrollBar(x: int, y: int, width: int, height: int): void
     }
 
     class SwingWindow {
-        - final int width = 200
-        - final int height = 200
-        - Window _window
-        - Glyph _glyph
-        - Pane _pane
-        - JFrame _jFrame
-        - Graphics _graphics
-        - FontMetrics _fm
-        - Pane
-        + void paintComponent(Graphics graphics)
-        + SwingWindow(String title)
-        + int charWidth(char c)
-        + int charHeight(char c)
-        + int charBaseline(char c)
-        + void drawCharacter(char c, int x, int y)
-        + void drawRectangle(int x, int y, int width, int height)
-        + void setContents(Glyph glyph)
+        - width: int
+        - height: int
+        - _window: Window
+        - _glyph: Glyph
+        - _pane: Pane
+        - _jFrame: JFrame
+        - _graphics: Graphics
+        - _fm: FontMetrics
+
+        + SwingWindow(title: String)
+        + charWidth(c: char): int
+        + charHeight(c: char): int
+        + drawCharacter(c: char, x: int, y: int): void
+        + drawRectangle(x: int, y: int, width: int, height: int): void
+        + setContents(glyph: Glyph): void
+        + addBorder(x1: int, y1: int, x2: int, y2: int, width: int): void
+        + addScrollBar(x: int, y: int, width: int, height: int): void
     }
 
      Window <|.. SwingWindow : implements

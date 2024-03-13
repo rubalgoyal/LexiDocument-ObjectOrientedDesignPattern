@@ -3,26 +3,25 @@ package glyph;
 import window.Window;
 import java.awt.Point;
 
-public class SimpleCompositor implements Compositor{
+public class SimpleCompositor implements Compositor {
     private Composition composition;
     private Window window;
 
-    public SimpleCompositor(Window window){
+    public SimpleCompositor(Window window) {
         this.window = window;
     }
 
     @Override
-    public void compose(){
+    public void compose() {
         Point cursor = composition.getBounds().getUpperLeft();
-        boolean flag = false;
         int position = 0;
         Glyph child = null;
         Glyph origin = null;
 
         // Just loop until reaches the end
-        try{
-            while (true){
-                if(composition.getChild(position) != null){
+        try {
+            while (true) {
+                if (composition.getChild(position) != null) {
                     child = composition.getChild(position);
                     if (origin == null)
                         origin = child;
@@ -35,16 +34,16 @@ public class SimpleCompositor implements Compositor{
                 composition.adjustBounds(cursor);
                 position++;
             }
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
 
         }
 
-        if(origin != null)
+        if (origin != null)
             composition.getBounds().getUpperLeft().setLocation(origin.getBounds().getUpperLeft());
     }
 
     @Override
-    public void setComposition(Composition composition){
+    public void setComposition(Composition composition) {
         this.composition = composition;
     }
 }

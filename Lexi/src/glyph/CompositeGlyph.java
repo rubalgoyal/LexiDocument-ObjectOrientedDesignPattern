@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class CompositeGlyph extends Glyph{
     private ArrayList<Glyph> children = new ArrayList<>();
-    public ArrayList<Glyph> getChildren() {
+    protected ArrayList<Glyph> getChildren() {
         return children;
     }
     public void setChildren(ArrayList<Glyph> children) {
@@ -29,12 +29,19 @@ public abstract class CompositeGlyph extends Glyph{
 
         }
         children.add(position, glyph);
+        if (getParent() != null) {
+            getParent().compose();
+        }
+
     }
 
     @Override
-    public void remove(Glyph glyph){
+    public void remove(Glyph glyph) throws OperationNotSupportedException {
         if(children.contains(glyph)){
             children.remove(glyph);
+            if (getParent() != null) {
+                getParent().compose();
+            }
         }
     }
 
@@ -44,6 +51,7 @@ public abstract class CompositeGlyph extends Glyph{
             throw new IndexOutOfBoundsException("No child at position: out of bounds");
 
         return children.get(position);
+
     }
 
 }

@@ -50,11 +50,44 @@ public class Tests {
         Column column2 = new Column(new SimpleCompositor(swingWindow));
         Scroller scroll1 = new Scroller(new SimpleCompositor(swingWindow));
         Border border1 = new Border(new SimpleCompositor(swingWindow), 2);
-        Scroller scroll2 = new Scroller(new SimpleCompositor(swingWindow));
-        Border border2 = new Border(new SimpleCompositor(swingWindow), 2);
 
         char[] characters = {' ', 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 'r', 'e', 'c', 't', 'a', 'n', 'g', 'l',
                               'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 'a', ' ', 'b', 'o','r','d','e','r'
+        };
+
+        try {
+            for(int i = 0; i < characters.length; i++){
+                row1.insertAtPosition(new Character(characters[i]), i);
+            }
+
+            column1.insertAtPosition(new Rectangle(50,50),characters.length+10);
+            column1.insertAtPosition(new Character(' '),characters.length+20);
+            column1.insertAtPosition(new Character('X'),characters.length+20);
+            row2.insertAtPosition(new Character('A'),0);
+            row2.insertAtPosition(new Character('l'),1);
+            row2.insertAtPosition(new Character('i'),2);
+            row2.insertAtPosition(new Character('c'),3);
+            row2.insertAtPosition(new Character('e'),4);
+            column1.insertAtPosition(row2, characters.length+21);
+            row1.insertAtPosition(column1, 10);
+            scroll1.insert(row1);
+            border1.insert(scroll1);
+
+        }
+        catch (OperationNotSupportedException e) {
+            System.out.println("OperationNotSupportedException caught");
+        }
+        swingWindow.setContents(border1);
+    }
+    public static void test2() throws OperationNotSupportedException {
+        Window swingWindow = new SwingWindow("Lexi");
+        Row row1 = new Row(new SimpleCompositor(swingWindow));
+        Column column1 = new Column(new SimpleCompositor(swingWindow));
+        Scroller scroll1 = new Scroller(new SimpleCompositor(swingWindow));
+        Border border1 = new Border(new SimpleCompositor(swingWindow), 2);
+
+        char[] characters = {' ', 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 'r', 'e', 'c', 't', 'a', 'n', 'g', 'l',
+                'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 'a', ' ', 'b', 'o','r','d','e','r'
         };
 
         try {
@@ -65,20 +98,18 @@ public class Tests {
             border1.insert(scroll1);
             column1.insertAtPosition(new Rectangle(50,50),characters.length+10);
             column1.insertAtPosition(new Character('X'),characters.length+20);
-            row2.insertAtPosition(new Character('A'),0);
-            row2.insertAtPosition(new Character('l'),1);
-            row2.insertAtPosition(new Character('i'),2);
-            row2.insertAtPosition(new Character('c'),3);
-            row2.insertAtPosition(new Character('e'),4);
-            scroll2.insert(row2);
-            border2.insert(scroll2);
-            column1.insertAtPosition(row2, characters.length+21);
             row1.insertAtPosition(column1, 0);
 
-        }
-        catch (OperationNotSupportedException e) {
+        } catch (OperationNotSupportedException e) {
             System.out.println("OperationNotSupportedException caught");
         }
         swingWindow.setContents(border1);
     }
+
+
+
+
+
+
+
 }

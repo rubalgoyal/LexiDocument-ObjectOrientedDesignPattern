@@ -41,7 +41,7 @@ public abstract class Composition extends CompositeGlyph{
         reformat();
     }
 
-    public void remove(Glyph glyph){
+    public void remove(Glyph glyph) throws OperationNotSupportedException {
         super.remove(glyph);
         reformat();
     }

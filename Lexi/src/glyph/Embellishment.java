@@ -46,10 +46,18 @@ public class Embellishment extends Composition{
         reformat();
     }
 
-//    public void remove(Glyph glyph) throws IndexOutOfBoundsException {
-//        getChildren().get(0).remove(glyph);
-//
-//        // UPDATE INTERNAL STRUCTURE
-//        refactor();
-//    }
+    public void insert(Glyph glyph, int position) throws OperationNotSupportedException, IndexOutOfBoundsException {
+        getChildren().get(0).insertAtPosition(glyph, position); // forward to childs's insert
+        glyph.setParent(getChildren().get(0));
+
+        // UPDATE INTERNAL STRUCTURE
+        reformat();
+    }
+
+    public void remove(Glyph glyph) throws IndexOutOfBoundsException, OperationNotSupportedException {
+        getChildren().get(0).remove(glyph);
+
+        // UPDATE INTERNAL STRUCTURE
+        reformat();
+    }
 }

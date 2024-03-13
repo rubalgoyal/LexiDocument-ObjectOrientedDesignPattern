@@ -1,8 +1,8 @@
 ### Name: Rubal Goyal
 ### Course: CS572 - Object Oriented Design Patterns
-### Assignment: HW1
+### Assignment: HW2
 
-I found this assignment little challenging. At first, it  was very confusing what is compositor, composition and composite glyph. However, reading book help me in understandingthe difference between these and how to implement `Compositon Pattern` and `Statergy Pattern`.
+I found this assignment more challenging than HW1. The most difficult part was creating test cases and understand how Border and Scroller will reflect on screen.
 
 #### UML File 
 
