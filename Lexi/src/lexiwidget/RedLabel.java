@@ -7,7 +7,8 @@ import window.Window;
 
 public class RedLabel extends Label {
 
-    protected RedLabel(Compositor compositor){
+    protected RedLabel(Compositor compositor, Glyph content){
+        super(content);
         setParent(null);
         getBounds().setPointDimensions(0,0);
         getBounds().getUpperLeft().setLocation(new Point(0,0));

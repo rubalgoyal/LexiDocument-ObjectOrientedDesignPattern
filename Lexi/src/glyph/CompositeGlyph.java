@@ -1,8 +1,8 @@
 package glyph;
 
-import window.Window;
 import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
+import window.Window;
 
 public abstract class CompositeGlyph extends Glyph{
     private ArrayList<Glyph> children = new ArrayList<>();
@@ -46,7 +46,7 @@ public abstract class CompositeGlyph extends Glyph{
     }
 
 
-    public Glyph getChild(int position){
+    public Glyph getChild(int position) {
         if(position >= children.size() || position < 0)
             throw new IndexOutOfBoundsException("No child at position: out of bounds");
 

@@ -1,9 +1,8 @@
 package glyph;
 
-import window.Window;
-
 import javax.naming.OperationNotSupportedException;
 import java.awt.Point;
+import window.Window;
 
 public abstract class Composition extends CompositeGlyph{
     private Compositor compositor;

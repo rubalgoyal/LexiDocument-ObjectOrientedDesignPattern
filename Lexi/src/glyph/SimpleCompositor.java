@@ -1,7 +1,7 @@
 package glyph;
 
-import window.Window;
 import java.awt.Point;
+import window.Window;
 
 public class SimpleCompositor implements Compositor {
     private Composition composition;
@@ -35,9 +35,7 @@ public class SimpleCompositor implements Compositor {
                 position++;
             }
         } catch (IndexOutOfBoundsException e) {
-
         }
-
         if (origin != null)
             composition.getBounds().getUpperLeft().setLocation(origin.getBounds().getUpperLeft());
     }

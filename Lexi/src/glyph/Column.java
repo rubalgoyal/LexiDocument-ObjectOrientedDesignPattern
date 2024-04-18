@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class Column extends Composition{
 
     public Column(Compositor compositor) throws OperationNotSupportedException {
-//        setParent(null);
-//        getBounds().setPointDimensions(0, 0);
-//        Point point = new Point(0, 0);
-//        getBounds().getUpperLeft().setLocation(point);
+        setParent(null);
+        getBounds().setPointDimensions(0, 0);
+        Point point = new Point(0, 0);
+        getBounds().getUpperLeft().setLocation(point);
         setChildren(new ArrayList<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
@@ -21,7 +21,8 @@ public class Column extends Composition{
         super.draw(window);
     }
 
-    public Glyph getChild(int position){
+    public Glyph getChild(int position) {
+
         return super.getChild(position);
     }
 

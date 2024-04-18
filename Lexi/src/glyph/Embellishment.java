@@ -1,11 +1,19 @@
 package glyph;
 
-import window.Window;
-
 import javax.naming.OperationNotSupportedException;
 import java.awt.*;
-
+import window.Window;
 public class Embellishment extends Composition{
+
+    public Embellishment(Glyph contents){
+        super();
+    }
+    public void compose(){
+        super.compose();
+    }
+    public void draw(Window window){
+        super.draw(window);
+    }
 
 
     @Override
@@ -60,4 +68,5 @@ public class Embellishment extends Composition{
         // UPDATE INTERNAL STRUCTURE
         reformat();
     }
+
 }

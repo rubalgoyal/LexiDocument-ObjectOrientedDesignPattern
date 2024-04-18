@@ -1,43 +1,71 @@
 package window;
 
-import glyph.*;
-
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SwingWindow implements Window {
+// Bridge(151): ConcreteImplementorA
+// AbstractFactory(87): ProductA1
+// FactoryMethod(107): ConcreteProduct
+
+class SwingWindow implements WindowImp {
 
     private final int width=200;
     private final int height=200;
 
     private Window _window;
-    private Glyph _glyph;
     private Pane _pane;
     private JFrame _jFrame;
     private Color _color;
     private Graphics _graphics;
+    private Font _font=null;
     private FontMetrics _fm;
+
+    private class PaneKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+            _window.key(e.getKeyChar());
+        }
+
+        public void keyPressed(KeyEvent e) {}
+
+        public void keyReleased(KeyEvent e) {}
+    }
+
+    private class PaneMouseListener implements MouseListener {
+        public void mouseClicked(MouseEvent e) {
+            _window.click(e.getX(),e.getY());
+        }
+
+        public void mousePressed(MouseEvent e) {}
+
+        public void mouseReleased(MouseEvent e) {}
+
+        public void mouseEntered(MouseEvent e) {}
+
+        public void mouseExited(MouseEvent e) {}
+    }
 
     private class Pane extends JPanel {
 
         public void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
             _graphics=graphics;
-            if (_glyph!=null)
-                _glyph.draw(_window);
+            if (_font!=null) {
+                _graphics.setFont(_font);
+                _fm=_graphics.getFontMetrics();
+            }
+            _window.draw();
         }
 
     }
 
-    public SwingWindow(String title) {
-        _window=this;
+    public SwingWindow(String title, Window window) {
+        _window=window;
         JFrame.setDefaultLookAndFeelDecorated(true);
         _jFrame=new JFrame(title);
         _jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         _jFrame.setJMenuBar(new JMenuBar());
-        _jFrame.pack(); // from: aaronrussell@u.boisestate.edu
         _jFrame.setSize(width,height);
         _jFrame.setVisible(true);
         _fm=_jFrame.getGraphics().getFontMetrics();
@@ -64,10 +92,13 @@ public class SwingWindow implements Window {
         _graphics.drawRect(x,y,width,height);
     }
 
-    public void setContents(Glyph glyph) {
-        _glyph=glyph;
+    public void setContents() {
         _pane=new Pane();
         _jFrame.setContentPane(_pane);
+        _pane.addMouseListener(new PaneMouseListener());
+        _pane.addKeyListener(new PaneKeyListener());
+        _pane.setFocusable(true);
+        _pane.requestFocusInWindow();
         _jFrame.setVisible(true);
     }
 
@@ -102,5 +133,29 @@ public class SwingWindow implements Window {
         _graphics.drawRect(x,y,width,height);
         _graphics.setColor(_color);
     }
+
+    public int getFontSize() {
+        Font font;
+        if (_font!=null)
+            font=_font;
+        else
+            font=_pane.getGraphics().getFont();
+        return font.getSize();
+    }
+
+    public void setFontSize(int size) {
+        if (size>0) {
+            Font font;
+            if (_font!=null)
+                font=_font;
+            else
+                font=_pane.getGraphics().getFont();
+            _font=new Font(font.getFamily(),font.getStyle(),size);
+            _graphics.setFont(_font);
+            _fm=_graphics.getFontMetrics();
+        }
+    }
+
+    public void repaint() { _pane.repaint(); }
 
 }

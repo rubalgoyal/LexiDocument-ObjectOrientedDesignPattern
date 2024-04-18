@@ -1,23 +1,27 @@
 package glyph;
-
 import window.Window;
-
 import java.awt.Point;
 import java.util.ArrayList;
 
 public class Row extends Composition {
 
     public Row(Compositor compositor) {
-//        getBounds().setPointDimensions(0, 0);
-//        Point point = new Point(0, 0);
-//        getBounds().getUpperLeft().setLocation(point);
+        setParent(null);
+        getBounds().setPointDimensions(0, 0);
+        Point point = new Point(0, 0);
+        getBounds().getUpperLeft().setLocation(point);
+        setChildren(new ArrayList<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
     }
 
+    public void draw(Window window){
+        super.draw(window);
+    }
+
     @Override
     public void adjustBounds(Point cursor) {
-
+        getBounds().setPointDimensions(cursor.x - getBounds().getUpperLeft().x,getBounds().getHeight());
     }
 
     public Glyph getChild(int position) {
@@ -42,5 +46,9 @@ public class Row extends Composition {
     public Point moveCursor(Point cursor, Glyph child) {
         cursor.x = child.getBounds().getUpperLeft().x + child.getBounds().getWidth();
         return cursor;
+    }
+
+    public void setPosition(int x, int y){
+        getBounds().getUpperLeft().setLocation(x,y);
     }
 }

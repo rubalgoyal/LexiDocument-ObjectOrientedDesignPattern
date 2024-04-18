@@ -1,11 +1,13 @@
 package lexiwidget;
+import command.Command;
 import glyph.Compositor;
+import glyph.Glyph;
 
 public class GreenFactory extends GUIFactory {
 
 
     public GreenFactory(){
-        //TODO
+
     }
 
     public static GreenFactory getInstance(){
@@ -14,12 +16,12 @@ public class GreenFactory extends GUIFactory {
         }
 
     @Override
-    protected Label labelFactoryMethod(Compositor compositor) {
+    protected Label labelFactoryMethod(Compositor compositor, Glyph content) {
         return new GreenLabel(compositor);
     }
 
     @Override
-    protected Button buttonFactoryMethod(Compositor compositor) {
-        return new GreenButton(compositor);
+    protected Button buttonFactoryMethod(Compositor compositor, Glyph content, Command command) {
+        return new GreenButton(compositor,content,command);
     }
 }

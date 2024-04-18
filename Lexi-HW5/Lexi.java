@@ -14,7 +14,8 @@ import lexiwindow.Window;
 public class Lexi {
     
     public static void main(String[] args) {
-        testHW5again();
+        //testHW5again();
+        testHW5();
         //testLegacy();
     }
 

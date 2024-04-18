@@ -7,7 +7,8 @@ import window.Window;
 
 public class GreenLabel extends Label{
 
-    protected GreenLabel(Compositor compositor){
+    protected GreenLabel(Compositor compositor, Glyph content){
+        super(content);
         setParent(null);
         getBounds().setPointDimensions(0,0);
         getBounds().getUpperLeft().setLocation(new Point(0,0));

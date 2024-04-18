@@ -1,5 +1,7 @@
     package lexiwidget;
     import java.awt.Point;
+
+    import command.Command;
     import glyph.Glyph;
     import glyph.Compositor;
     import java.util.ArrayList;
@@ -7,7 +9,8 @@
 
     public class RedButton extends Button {
 
-        protected RedButton(Compositor compositor){
+        protected RedButton(Compositor compositor, Glyph content, Command command){
+            super(content,command);
             setParent(null);
             getBounds().setPointDimensions(0,0);
             getBounds().getUpperLeft().setLocation(new Point(0,0));

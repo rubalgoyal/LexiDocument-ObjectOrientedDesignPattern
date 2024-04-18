@@ -1,8 +1,6 @@
 package glyph;
-
-
-import java.awt.Point;
 import window.Window;
+import java.awt.Point;
 
 public class Character extends Glyph {
 
