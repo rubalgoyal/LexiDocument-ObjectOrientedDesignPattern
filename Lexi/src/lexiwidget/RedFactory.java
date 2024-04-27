@@ -5,7 +5,6 @@ import glyph.Glyph;
 
 public class RedFactory extends GUIFactory {
 
-
     private RedFactory(){
 
     }
@@ -17,7 +16,7 @@ public class RedFactory extends GUIFactory {
 
     @Override
     protected Label labelFactoryMethod(Compositor compositor, Glyph content) {
-        return new RedLabel(compositor);
+        return new RedLabel(compositor,content);
     }
 
     @Override

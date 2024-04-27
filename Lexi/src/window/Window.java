@@ -11,7 +11,7 @@ import java.awt.*;
 public abstract class Window {
 
     protected WindowImp windowImp;
-    private Glyph root = null;
+    protected Glyph root = null;
 
     private KeyMap keyMap = new KeyMap();
 
@@ -34,9 +34,11 @@ public abstract class Window {
 
     public void setContents(Glyph root) {
         this.root = root;
-        windowImp.setContents();
-        keyMap.put('a', new IncrementFontSize("Incrementing font size"));
-        keyMap.put('b', new DecrementFontSize("Decrementing font size "));
+        windowImp.setContents(root);
+//        this.root = root;
+//        windowImp.setContents();
+//        keyMap.put('a', new IncrementFontSize("Incrementing font size"));
+//        keyMap.put('b', new DecrementFontSize("Decrementing font size "));
 
     }
 
@@ -59,58 +61,22 @@ public abstract class Window {
             root.draw(this);
         }
     }
-
+    //TODO: This one needs to written in Composition
     public void click(int x, int y){
-        Glyph preseed = null;
-        Glyph current = root;
         Point point = new Point(x,y);
-        while(preseed == null && current.intersect(point)){
-            preseed = current.onClick(point);
-            Glyph parent = current;
-            for(int i = 0; i >= 0; i++){
-                try{
-                    if (current.child(i).intersect(point)){
-                        current = current.child(i);
-                        break;
-                    }
-                }
-                catch (OperationNotSupportedException e){
-                    break;
-                }
-                catch (IndexOutOfBoundsException e){
-                    break;
-                }
-            }
-            if(parent == current){
-                break;
-            }
-        }
-        if(preseed != null){
-            System.out.println(preseed.getCommand());
-            Command copy = preseed.getCommand().cloneCommand();
-            copy.execute(this);
-            if (copy.isUndoable()){
-                CommandHistory.getInstance().add(copy);
-            }
-            root.compose();
-            windowImp.repaint();
-            System.out.println(getFontSize());
-        }
-        else{
-            System.out.println("not there");
-        }
-        System.out.println("click!");
+        root.onClick(point);
+
     }
 
     public void key(char c){
         System.out.println("you pressed " +c);
         Command command = keyMap.get(c);
         if(command != null){
-            System.out.println(command.getShortcut());
+//            System.out.println(command.getShortcut());
             Command copy = command.cloneCommand();
-            copy.execute(this);
+            copy.execute();
             if(copy.isUndoable()){
-                CommandHistory.getInstance().add(copy);
+                CommandHistory.getInstance().add(copy); //TODO: commented to test
             }
             root.compose();
             windowImp.repaint();
@@ -124,6 +90,11 @@ public abstract class Window {
 
     public int getFontSize() {
         return windowImp.getFontSize();
+    }
+
+    public void repaint(){
+        root.compose();
+        windowImp.repaint();
     }
 
 }

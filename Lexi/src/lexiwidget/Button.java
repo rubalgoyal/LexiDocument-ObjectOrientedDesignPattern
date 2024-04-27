@@ -7,9 +7,9 @@ import glyph.*;
 import java.awt.Point;
 
 public abstract class Button extends Embellishment {
-    Command command = null;
+    //Command command = null;
 
-    public Button(Glyph content, Command command){
+    public Button(Glyph content, Command command) {
         super(content);
         this.command = command;
     }
@@ -20,16 +20,16 @@ public abstract class Button extends Embellishment {
         return this;
     }
 
-    public Glyph onClick(Point point){
+    @Override
+    public void onClick(Point point){
         if(intersect(point)){
             System.out.println("onlclick");
-            return this;
+            command.execute();
         }
-        else{
-            return null;
-        }
+        super.onClick(point);
     }
     public Command getCommand(){
         return command;
     }
+
 }

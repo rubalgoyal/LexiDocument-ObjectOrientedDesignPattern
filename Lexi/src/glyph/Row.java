@@ -9,10 +9,11 @@ public class Row extends Composition {
         setParent(null);
         getBounds().setPointDimensions(0, 0);
         Point point = new Point(0, 0);
-        getBounds().getUpperLeft().setLocation(point);
+        getBounds().getStartPoint().setLocation(point);
         setChildren(new ArrayList<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
+//        super(compositor);
     }
 
     public void draw(Window window){
@@ -21,7 +22,7 @@ public class Row extends Composition {
 
     @Override
     public void adjustBounds(Point cursor) {
-        getBounds().setPointDimensions(cursor.x - getBounds().getUpperLeft().x,getBounds().getHeight());
+        getBounds().setPointDimensions(cursor.x - getBounds().getStartPoint().x,getBounds().getHeight());
     }
 
     public Glyph getChild(int position) {
@@ -44,11 +45,11 @@ public class Row extends Composition {
     }
 
     public Point moveCursor(Point cursor, Glyph child) {
-        cursor.x = child.getBounds().getUpperLeft().x + child.getBounds().getWidth();
+        cursor.x = child.getBounds().getStartPoint().x + child.getBounds().getWidth();
         return cursor;
     }
 
     public void setPosition(int x, int y){
-        getBounds().getUpperLeft().setLocation(x,y);
+        getBounds().getStartPoint().setLocation(x,y);
     }
 }

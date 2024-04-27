@@ -1,5 +1,7 @@
 package window;
 
+import glyph.Glyph;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -92,7 +94,7 @@ class SwingWindow implements WindowImp {
         _graphics.drawRect(x,y,width,height);
     }
 
-    public void setContents() {
+    public void setContents(Glyph root) {
         _pane=new Pane();
         _jFrame.setContentPane(_pane);
         _pane.addMouseListener(new PaneMouseListener());

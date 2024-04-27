@@ -1,12 +1,16 @@
 ### Name: Rubal Goyal
 ### Course: CS572 - Object Oriented Design Patterns
-### Assignment: HW2
+### Assignment: HW5
 
-I found this assignment more challenging than HW1. The most difficult part was creating test cases and understand how Border and Scroller will reflect on screen.
+I found this assignment very challenging. Getting the Red/Green buttons to 
+enable changing the font sizes of the button texts,
+is proving to be difficult. I assumed the glyps automatically set 
+the sizes following chain of command during my development. I have created the buttons and 
+added glyphs as well. My output still not showing the buttons.
 
 #### UML File 
 
-My UML file is in Lexi folder with name __UML.png__.
+My UML file is in Lexi folder with name __UML_HW5.png__.
 
 ## Instruction to compile and run
 
@@ -20,4 +24,4 @@ java Main
 ```
 ## My Sample output
 
-My Output  is in Lexi folder with name __Hw2_Output.png__.
+My Output  is in Lexi folder with name __Hw_Output.png__.

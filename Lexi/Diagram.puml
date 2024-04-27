@@ -230,6 +230,7 @@ package lexiwidget {
         +setSize(window: Window): void
     }
 
+
     GUIFactory <|-- RedFactory
     GUIFactory <|-- GreenFactory
     Embellishment <|-- Button
@@ -242,10 +243,31 @@ package lexiwidget {
     GreenLabel <|.. GreenFactory
     RedButton <|.. RedFactory
     RedLabel <|.. RedFactory
-
-
+}
+package command{
+    abstract class Command {}
+    class CommandHistory{}
+    class DecrementFontSize{}
+    class IncrementFontSize{}
+    class KeyMap{}
+    class Redo{}
+    class Undo{}
+    class SetFontSize{}
 
 }
+    Button -|> Embellishment
+    Button - Command : composition
+    Command <|-- DecrementFontSize
+    Command <|-- IncrementFontSize
+    Command <|-- Redo
+    Command <|-- Undo
+    Command <|-- SetFontSize
+    Command o- Window
+
+
+
+
+
 
 'package glyph {
 '    class Compositor

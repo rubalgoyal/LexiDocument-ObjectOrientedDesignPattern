@@ -13,7 +13,7 @@ public abstract class GUIFactory {
     public static GUIFactory getInstance(){
         if(single == null){
 //            String string = System.getenv("LexiWidget");
-            String string = "Red";
+            String string = "Green";
             if(string != null && string.equals("Red")){
                 single = RedFactory.getInstance();
             }
@@ -23,16 +23,10 @@ public abstract class GUIFactory {
         }
         return single;
     }
-
     public final Button createButton(Compositor compositor, Glyph content, Command command){
         return buttonFactoryMethod(compositor,content,command);
     }
-
     public final Label createLabel(Compositor compositor, Glyph content){
         return labelFactoryMethod(compositor,content);
     }
-
-
-
-
 }

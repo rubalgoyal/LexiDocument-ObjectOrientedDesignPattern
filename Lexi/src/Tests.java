@@ -1,7 +1,7 @@
 import glyph.*;
 import glyph.Character;
 import glyph.SimpleCompositor;
-import window.SwingWindow;
+//import window.SwingWindow;
 import lexiwidget.*;
 
 

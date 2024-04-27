@@ -2,11 +2,16 @@ package glyph;
 
 import javax.naming.OperationNotSupportedException;
 import java.awt.*;
+import java.util.ArrayList;
+
 import window.Window;
 public class Embellishment extends Composition{
 
-    public Embellishment(Glyph contents){
-        super();
+    public Embellishment(Glyph contents)  {
+//        setParent(null);
+        ArrayList<Glyph> children = new ArrayList<Glyph>();
+        children.add(contents);
+        setChildren(children);
     }
     public void compose(){
         super.compose();
@@ -28,8 +33,8 @@ public class Embellishment extends Composition{
                 getChildren().get(0).getBounds().getHeight()
         );
 
-        getBounds().getUpperLeft().setLocation(
-                getChild().getBounds().getUpperLeft().getLocation()
+        getBounds().getStartPoint().setLocation(
+                getChild().getBounds().getStartPoint().getLocation()
         );
     }
 
@@ -54,7 +59,7 @@ public class Embellishment extends Composition{
         reformat();
     }
 
-    public void insert(Glyph glyph, int position) throws OperationNotSupportedException, IndexOutOfBoundsException {
+    public void insertAtPosition(Glyph glyph, int position) throws OperationNotSupportedException, IndexOutOfBoundsException {
         getChildren().get(0).insertAtPosition(glyph, position); // forward to childs's insert
         glyph.setParent(getChildren().get(0));
 
@@ -67,6 +72,11 @@ public class Embellishment extends Composition{
 
         // UPDATE INTERNAL STRUCTURE
         reformat();
+    }
+
+    @Override
+    public void onClick(Point point){
+        getChild().onClick(point);
     }
 
 }

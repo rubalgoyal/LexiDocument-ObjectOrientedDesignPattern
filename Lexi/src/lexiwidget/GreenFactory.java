@@ -17,7 +17,7 @@ public class GreenFactory extends GUIFactory {
 
     @Override
     protected Label labelFactoryMethod(Compositor compositor, Glyph content) {
-        return new GreenLabel(compositor);
+        return new GreenLabel(compositor,content);
     }
 
     @Override

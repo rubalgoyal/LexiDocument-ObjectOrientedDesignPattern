@@ -1,11 +1,17 @@
+// Uses Composite Design Pattern
+
 package glyph;
 
 import javax.naming.OperationNotSupportedException;
+import java.awt.*;
 import java.util.ArrayList;
 import window.Window;
 
 public abstract class CompositeGlyph extends Glyph{
     private ArrayList<Glyph> children = new ArrayList<>();
+    public CompositeGlyph(){
+        this.children = new ArrayList<>();
+    }
     protected ArrayList<Glyph> getChildren() {
         return children;
     }
@@ -52,6 +58,14 @@ public abstract class CompositeGlyph extends Glyph{
 
         return children.get(position);
 
+    }
+
+    @Override
+    public void onClick(Point point){
+        for(Glyph child : this.children){
+            if(child.intersect(point))
+                child.onClick(point);
+        }
     }
 
 }

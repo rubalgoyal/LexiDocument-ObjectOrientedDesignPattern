@@ -2,28 +2,39 @@ package command;
 import window.Window;
 
 public class SetFontSize extends Command{
+    Window window;
     private int previousSize;
     private int size;
 
-    public SetFontSize(String shortcut, int size){
-        super(shortcut);
+    public SetFontSize(int size, Window window){
+//        super(shortcut);
+        this.window = window;
         this.size = size;
-        undoable = true;
+//        undoable = true;
         previousSize = 8;
     }
     @Override
-    public void execute(Window window) {
-        this.size = size++;
+    public void execute() {
+        previousSize = this.window.getFontSize();
+        this.window.setFontSize(this.size);
+        this.window.repaint();
     }
 
     @Override
-    public void unexecute(Window window) {
-        size = previousSize;
+    public void unexecute() {
+       this.window.setFontSize(previousSize);
+       this.previousSize = 8;
+       this.window.repaint();
     }
 
     @Override
     public Command cloneCommand() {
-        SetFontSize setFontSize =  new SetFontSize(shortcut,size);
-        return setFontSize;
+        Command command =  new SetFontSize(size, window);
+        return command;
+    }
+
+    @Override
+    public boolean isUndoable(){
+        return true;
     }
 }

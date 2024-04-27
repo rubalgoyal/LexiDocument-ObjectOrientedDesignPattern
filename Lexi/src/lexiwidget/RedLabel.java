@@ -11,7 +11,7 @@ public class RedLabel extends Label {
         super(content);
         setParent(null);
         getBounds().setPointDimensions(0,0);
-        getBounds().getUpperLeft().setLocation(new Point(0,0));
+        getBounds().getStartPoint().setLocation(new Point(0,0));
         setChildren(new ArrayList<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
@@ -22,12 +22,11 @@ public class RedLabel extends Label {
     public void draw(Window window) {
         getChild().draw(window);
         window.drawLabel(
-                getChild().getBounds().getUpperLeft().x,
-                getChild().getBounds().getUpperLeft().y,
+                getChild().getBounds().getStartPoint().x,
+                getChild().getBounds().getStartPoint().y,
                 getChild().getBounds().getWidth(),
                 getChild().getBounds().getHeight(),
         "red");
-
     }
 
     @Override

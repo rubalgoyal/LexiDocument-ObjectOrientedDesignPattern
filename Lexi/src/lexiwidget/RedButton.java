@@ -4,7 +4,6 @@
     import command.Command;
     import glyph.Glyph;
     import glyph.Compositor;
-    import java.util.ArrayList;
     import window.Window;
 
     public class RedButton extends Button {
@@ -13,23 +12,49 @@
             super(content,command);
             setParent(null);
             getBounds().setPointDimensions(0,0);
-            getBounds().getUpperLeft().setLocation(new Point(0,0));
-            setChildren(new ArrayList<Glyph>());
+            getBounds().getStartPoint().setLocation(new Point(0,0));
             setCompositor(compositor);
             getCompositor().setComposition(this);
         }
+
         @Override
         public void draw(Window window) {
-            window.drawButton(
-                    getChild().getBounds().getUpperLeft().x,
-                    getChild().getBounds().getUpperLeft().y,
-                    getChild().getBounds().getWidth(),
-                    getChild().getBounds().getHeight(),
-            "red");
-            getChild().draw(window);
+
+                window.drawButton(
+                        getChild().getBounds().getStartPoint().x,
+                        getChild().getBounds().getStartPoint().y,
+                        getChild().getBounds().getWidth(),
+                        getChild().getBounds().getHeight(),
+                        "red");
+                getChild().draw(window);
+
         }
 
         @Override
         public void setSize(Window window) {
+//            int width = 0;
+//            int height = 0;
+//            Glyph child = super.getChildren().get(0);
+//            try {
+//                for (int i = 1; i > -1; i++) {
+//                    width += child.getBounds().getWidth();
+//                    height = Math.max(height, child.getBounds().getHeight());
+//                    child = this.getChild(i);
+//                }
+//            } catch (Exception e) {
+//                getBounds().setPointDimensions(width, height);
+//            }
         }
+
+//        @Override
+//        public void adjustBounds(Point cursor) {
+//            getBounds().setPointDimensions(
+//                    getChildren().get(0).getBounds().getWidth(),
+//                    getChildren().get(0).getBounds().getHeight()
+//            );
+//
+//            getBounds().getUpperLeft().setLocation(
+//                    getChild().getBounds().getUpperLeft().getLocation()
+//            );
+//        }
     }

@@ -13,7 +13,7 @@ public class Border extends Embellishment{
         super.setParent(null);
         super.getBounds().setPointDimensions(0,0);
         Point point = new Point(0,0);
-        super.getBounds().getUpperLeft().setLocation(point);
+        super.getBounds().getStartPoint().setLocation(point);
         super.setChildren(new ArrayList<Glyph>());
         super.setCompositor(compositor);
         super.getCompositor().setComposition(this);
@@ -22,10 +22,10 @@ public class Border extends Embellishment{
     public void draw(Window window) {
         super.draw(window);
         window.addBorder(
-                getChild().getBounds().getUpperLeft().x,
-                getChild().getBounds().getUpperLeft().y ,
-                getChild().getBounds().getUpperLeft().x + getChild().getBounds().getWidth()+3 ,
-                getChild().getBounds().getUpperLeft().y + getChild().getBounds().getHeight()+3,
+                getChild().getBounds().getStartPoint().x,
+                getChild().getBounds().getStartPoint().y ,
+                getChild().getBounds().getStartPoint().x + getChild().getBounds().getWidth()+3 ,
+                getChild().getBounds().getStartPoint().y + getChild().getBounds().getHeight()+3,
                 thickness);
     }
 }

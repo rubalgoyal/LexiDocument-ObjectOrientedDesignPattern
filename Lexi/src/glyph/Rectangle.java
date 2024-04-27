@@ -1,3 +1,5 @@
+// Uses Composite Design Pattern
+
 package glyph;
 import window.Window;
 import java.awt.Point;
@@ -10,15 +12,15 @@ public class Rectangle extends Glyph {
         this.width = width;
         this.height = height;
         setParent(null);
-        getBounds().getUpperLeft().setLocation(new Point(0,0));
+        getBounds().getStartPoint().setLocation(new Point(0,0));
         getBounds().setPointDimensions(width, height);
 
     }
 
     @Override
     public void draw(Window window) {
-        window.drawRectangle(getBounds().getUpperLeft().x,
-                getBounds().getUpperLeft().y,
+        window.drawRectangle(getBounds().getStartPoint().x,
+                getBounds().getStartPoint().y,
                 getBounds().getWidth(),
                 getBounds().getHeight()
         );
@@ -29,5 +31,10 @@ public class Rectangle extends Glyph {
     public void setSize(Window window) {
         getBounds().setPointDimensions(this.width,this.height);
 
+    }
+
+    @Override
+    public void onClick(Point point) {
+        //Do nothing
     }
 }

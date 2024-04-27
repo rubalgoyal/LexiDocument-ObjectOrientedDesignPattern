@@ -4,20 +4,35 @@ import java.awt.Point;
 import window.Window;
 
 public class SimpleCompositor implements Compositor {
-    private Composition composition;
-    private Window window;
+    private Composition composition; //Matched
+    final private Window window; //Matched
 
     public SimpleCompositor(Window window) {
-        this.window = window;
+        this.window = window; //Matched
     }
 
     @Override
     public void compose() {
-        Point cursor = composition.getBounds().getUpperLeft();
+        Point cursor = composition.getBounds().getStartPoint();
+        int cursorX = cursor.x;
+        int cursorY = cursor.y;
+
+//        Glyph child;
+//        try{
+//            for(int i = 0; i < composition.getChildren().size(); i++){
+//                child = composition.getChild(i);
+//                child.setSize(window);
+//                child.getBounds().getStartPoint().setLocation(cursorX, cursorY);
+//                child.compose();
+////                cursorX += composition.
+//            }
+//            composition.setSize(window);
+//        } catch (Exception e){
+//            System.out.println(e);
+//        }
         int position = 0;
         Glyph child = null;
         Glyph origin = null;
-
         // Just loop until reaches the end
         try {
             while (true) {
@@ -27,21 +42,24 @@ public class SimpleCompositor implements Compositor {
                         origin = child;
 
                     child.setSize(window);
-                    child.getBounds().getUpperLeft().setLocation(cursor.x, cursor.y);
+                    child.getBounds().getStartPoint().setLocation(cursor.x, cursor.y);
                     composition.getChild(position).compose();
                     cursor = composition.moveCursor(cursor, child);
                 }
                 composition.adjustBounds(cursor);
+                composition.setSize(window);
                 position++;
             }
         } catch (IndexOutOfBoundsException e) {
         }
         if (origin != null)
-            composition.getBounds().getUpperLeft().setLocation(origin.getBounds().getUpperLeft());
+            composition.getBounds().getStartPoint().setLocation(origin.getBounds().getStartPoint());
     }
 
     @Override
     public void setComposition(Composition composition) {
         this.composition = composition;
     }
+
+
 }

@@ -6,7 +6,7 @@ public abstract class WindowFactory {
     public static WindowFactory getInstance(){
         if(single == null){
 //            String string =System.getenv("LexiWindow");
-            String string = "Awt";
+            String string = "Swing";
             if(string != null && string.equals("Swing"))
                 single = SwingWindowFactory.getInstance();
             else if(string != null && string.equals("Awt"))

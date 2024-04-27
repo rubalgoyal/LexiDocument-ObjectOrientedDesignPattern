@@ -3,25 +3,24 @@ import window.Window;
 
 public class Redo extends Command {
 
-    public Redo(String shortcut){
-        super(shortcut);
-        undoable = false;
+
+    @Override
+    public void execute() {
+        CommandHistory.redo();
     }
 
     @Override
-    public void execute(Window window) {
-        Command redone = CommandHistory.getInstance().redo();
-        if(redone != null)
-            redone.execute(window);
-    }
-
-    @Override
-    public void unexecute(Window window) {
+    public void unexecute() {
         //Do nothing
     }
 
     @Override
     public Command cloneCommand() {
-        return new Redo(shortcut);
+        return null;
+    }
+
+    @Override
+    public boolean isUndoable(){
+        return false;
     }
 }
