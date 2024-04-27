@@ -11,8 +11,8 @@ import window.Window;
 
 public abstract class Glyph {
 
-    private Glyph parent;
-    private Bounds bounds = new Bounds(new Point(0,0), 0, 0);
+    protected Glyph parent;
+    protected Bounds bounds;
 
     protected Command command = null;
     public abstract void draw(Window window);
@@ -40,9 +40,12 @@ public abstract class Glyph {
     }
 
     public boolean intersect(Point point){
+        if(this.bounds == null){
+            return false;
+        }
         boolean intersectHorizontal = this.bounds.getBoundStartX() <= point.x && point.x <= this.bounds.getBoudnEndX();
         boolean intersectVeritical = this.bounds.getBoundStartY() <= point.y && point.y <= this.bounds.getBoudnEndY();
-        return intersectHorizontal || intersectVeritical;
+        return intersectHorizontal && intersectVeritical;
     }
 
     public void compose(){}

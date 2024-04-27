@@ -9,6 +9,7 @@ public class Rectangle extends Glyph {
     private int height;
 
     public Rectangle(int width, int height){
+        this.bounds = new Bounds(new Point(0,0), 0, 0);
         this.width = width;
         this.height = height;
         setParent(null);

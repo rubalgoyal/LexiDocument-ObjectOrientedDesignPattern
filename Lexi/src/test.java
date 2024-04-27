@@ -58,187 +58,82 @@ public class test {
     public static void test5() throws OperationNotSupportedException {
         Window window = new ApplicationWindow("Lexi");
 
-        Compositor compositor = new SimpleCompositor(window);
-
-        Column column = new Column(compositor);
-        Column column2 = new Column(compositor);
         // Root Row
-        Row row = new Row(new SimpleCompositor(window));
+        Row rootRow = new Row(new SimpleCompositor(window));
 
-        Character x = new Character('X');
-        Character y = new Character('Y');
-        Character z = new Character('Z');
-        Character a = new Character('A');
-        Character b = new Character('B');
+        Column column = new Column(new SimpleCompositor(window));
+        Row row1 = new Row(new SimpleCompositor(window));
+        Row row2 = new Row(new SimpleCompositor(window));
+        Row row3 = new Row(new SimpleCompositor(window));
 
-        Character one = new Character('1');
-        Character two = new Character('2');
 
         Character space = new Character(' ');
 
         Glyph rect1 = new Rectangle(20,10);
-        Glyph rect2 = new Rectangle(5,5);
-        Glyph rect3 = new Rectangle(5,25);
+        Glyph rect2 = new Rectangle(10,20);
 
         try{
-            column.insertAtPosition(x, 0);
-            column.insertAtPosition(y, 1);
-            column.insertAtPosition(space, 2);
-            column.insertAtPosition(rect2, 3);
 
-            column2.insertAtPosition(a, 0);
-            column2.insertAtPosition(b, 1);
-            column2.insertAtPosition(rect2, 2);
+            insertWordsInGlyph("Hi Smith !! How are you doing?", row1, 0);
+            insertWordsInGlyph("I am doing great", row2, 0);
+            insertWordsInGlyph("I am enjoying OODP!", row3, 0);
 
+            column.insertAtPosition(row1, 0);
+//            column.insertAtPosition(space, 1);
+            column.insertAtPosition(row2, 1);
+            column.insertAtPosition(row3, 2);
 
-            row.insertAtPosition(column, 0);
-            row.insertAtPosition(rect1, 1);
-            row.insertAtPosition(column2, 2);
+            rootRow.insertAtPosition(column, 0);
+            rootRow.insertAtPosition(rect1, 4);
+            rootRow.insertAtPosition(space, 5);
+            rootRow.insertAtPosition(rect2, 6);
+
 
             Row buttonRowComp = new Row(new SimpleCompositor(window));
-
-
             Row buttonPlusRow = new Row(new SimpleCompositor(window));
-            Character Plus = new Character('+');
-            buttonPlusRow.insertAtPosition(Plus, 0);
-
+            Character plus = new Character('+');
+            buttonPlusRow.insertAtPosition(plus, 0);
             Command buttonPlusComm = new IncrementFontSize(window);
             Button buttonPlus = GUIFactory.getInstance().createButton(new SimpleCompositor(window), buttonPlusRow, buttonPlusComm);
             buttonRowComp.insertAtPosition(buttonPlus, 0);
 
-            buttonRowComp.insertAtPosition(space, 0);
-            buttonRowComp.insertAtPosition(space, 1);
-            buttonRowComp.insertAtPosition(space, 2);
-            buttonRowComp.insertAtPosition(space, 3);
-            buttonRowComp.insertAtPosition(one,4);
-            buttonRowComp.insertAtPosition(two,5);
-            buttonRowComp.insertAtPosition(rect3, 6);
-            buttonRowComp.insertAtPosition(x, 7);
-            buttonRowComp.insertAtPosition(y, 8);
-            buttonRowComp.insertAtPosition(z, 9);
 
+            Row buttonMinusRow = new Row(new SimpleCompositor(window));
+            Character minus = new Character('-');
+            buttonMinusRow.insertAtPosition(minus, 0);
+            Command buttonMinusComm = new DecrementFontSize(window);
+            Button buttonMinus = GUIFactory.getInstance().createButton(new SimpleCompositor(window), buttonMinusRow, buttonMinusComm);
+            buttonRowComp.insertAtPosition(buttonMinus, 2);
 
-            Command command = new SetFontSize(80, window);
+            Row buttonHighRow = new Row(new SimpleCompositor(window));
+            insertWordsInGlyph("40", buttonHighRow, 0);
+            Command buttonHighComm = new SetFontSize(40, window);
+            Button buttonHigh = GUIFactory.getInstance().createButton(new SimpleCompositor(window), buttonHighRow, buttonHighComm);
+            buttonRowComp.insertAtPosition(buttonHigh, 4);
 
+            Row buttonLowRow = new Row(new SimpleCompositor(window));
+            insertWordsInGlyph("10", buttonLowRow, 0);
+            Command buttonLowComm = new SetFontSize(10, window);
+            Button buttonLow = GUIFactory.getInstance().createButton(new SimpleCompositor(window), buttonLowRow, buttonLowComm);
+            buttonRowComp.insertAtPosition(buttonLow, 6);
 
-            Button button1 = GUIFactory.getInstance().createButton(new SimpleCompositor(window),buttonRowComp,command);
+            column.insertAtPosition(buttonRowComp, 4);
 
-            row.insertAtPosition(button1, 3);
-
-            window.setContents(row);
+            Border border = new Border(new SimpleCompositor(window),rootRow,8);
+            Scroller scroller = new Scroller(new SimpleCompositor(window), rootRow);
+            window.setContents(scroller);
         }
         catch (OperationNotSupportedException e){
             System.out.println(e);
         }
     }
 
-
-//    public static void test5Alternate() throws OperationNotSupportedException {
-//
-//        Window window = new ApplicationWindow("my Window");
-//
-//        //Root Column
-//        SimpleCompositor rootComp = new SimpleCompositor(window);
-//        Column root = new Column(rootComp);
-//
-//        try {
-//            //Button Row Creation
-//            SimpleCompositor buttonRowComp = new SimpleCompositor(window);
-//            Row buttonRow = new Row(buttonRowComp);
-//            root.insertAtPosition(buttonRow, 0);
-//
-//            SimpleCompositor button20RowComp = new SimpleCompositor(window);
-//            Row button20Row = new Row(button20RowComp);
-//            Character twenty2 = new Character('2');
-//            Character twenty0 = new Character('0');
-//            button20Row.insertAtPosition(twenty2, 0);
-//            button20Row.insertAtPosition(twenty0, 1);
-//
-//            Command button20Comm = new SetFontSize("Font size 20", 20, window);
-//            SimpleCompositor button20Comp = new SimpleCompositor(window);
-//            Button button20 = GUIFactory.getInstance().createButton(button20Comp, button20Row, button20Comm);
-//            buttonRow.insertAtPosition(button20, 0);
-//
-//
-//            SimpleCompositor button14RowComp = new SimpleCompositor(window);
-//            Row button14Row = new Row(button14RowComp);
-//            Character fourteen1 = new Character('1');
-//            Character fourteen4 = new Character('4');
-//            button14Row.insertAtPosition(fourteen1, 0);
-//            button14Row.insertAtPosition(fourteen4, 1);
-//
-//            Command button14Comm = new SetFontSize("Font size 14", 14, window);
-//            SimpleCompositor button14Comp = new SimpleCompositor(window);
-//            Button button14 = GUIFactory.getInstance().createButton(button14Comp, button14Row, button14Comm);
-//            buttonRow.insertAtPosition(button14, 0);
-//
-//            SimpleCompositor buttonPlusRowComp = new SimpleCompositor(window);
-//            Row buttonPlusRow = new Row(buttonPlusRowComp);
-//            Character Plus = new Character('+');
-//            buttonPlusRow.insertAtPosition(Plus, 0);
-//
-//            Command buttonPlusComm = new IncrementFontSize("Bigger Font Size",window);
-//            SimpleCompositor buttonPlusComp = new SimpleCompositor(window);
-//            Button buttonPlus = GUIFactory.getInstance().createButton(buttonPlusComp, buttonPlusRow, buttonPlusComm);
-//            buttonRow.insertAtPosition(buttonPlus, 0);
-//
-//            SimpleCompositor buttonMinusRowComp = new SimpleCompositor(window);
-//            Row buttonMinusRow = new Row(buttonMinusRowComp);
-//            Character Minus = new Character('-');
-//            buttonMinusRow.insertAtPosition(Minus, 0);
-//
-//            Command buttonMinusComm = new DecrementFontSize("Smaller Font Size",window);
-//            SimpleCompositor buttonMinusComp = new SimpleCompositor(window);
-//            Button buttonMinus = GUIFactory.getInstance().createButton(buttonMinusComp, buttonMinusRow, buttonMinusComm);
-//            buttonRow.insertAtPosition(buttonMinus, 0);
-//
-//
-////            ////Random Stuff
-////            SimpleCompositor x = new SimpleCompositor(window);
-////            SimpleCompositor x1 = new SimpleCompositor(window);
-////            SimpleCompositor x3 = new SimpleCompositor(window);
-////            SimpleCompositor labComp = new SimpleCompositor(window);
-////            SimpleCompositor butComp = new SimpleCompositor(window);
-////            SimpleCompositor bordComp = new SimpleCompositor(window);
-////            SimpleCompositor scbarcomp = new SimpleCompositor(window);
-////            Character a = new Character('a');
-////            Character b = new Character('b');
-////            Character c = new Character('c');
-////            Character d = new Character('d');
-////            Character e = new Character('e');
-////            Rectangle rect = new Rectangle(10,10);
-////            Character on = new Character('1');
-////            Rectangle rect2 = new Rectangle(10,15);
-////            Character two = new Character('2');
-////
-////            Row subRoot2 = new Row(x1);
-////            Row subRoot = new Row(x);
-////            Column subRoot2_1 = new Column(x3);
-////            Command x32 = new SetFontSize("ba", 10);
-////            Label label = GUIFactory.getInstance().createLabel(labComp, subRoot2);
-////            Button buttonba = GUIFactory.getInstance().createButton(butComp, subRoot, x32);
-////            Scroller scbar = new Scroller(scbarcomp, subRoot2_1);
-////            Border bord = new Border(bordComp, scbar, 5);
-////
-////            root.insertAtPosition(buttonba, 0);
-////            root.insertAtPosition(c, 0);
-////            subRoot.insertAtPosition(a, 0);
-////            subRoot.insertAtPosition(b, 0);
-////            subRoot2.insertAtPosition(bord, 0);
-////            subRoot2_1.insertAtPosition(on, 0);
-////            subRoot2_1.insertAtPosition(rect2,0);
-////            subRoot2_1.insertAtPosition(two, 0);
-////            subRoot2.insertAtPosition(d, 0);
-////            subRoot2.insertAtPosition(rect, 0);
-////            subRoot2.insertAtPosition(e, 0);
-////            root.insertAtPosition(label, 0);
-//
-//
-//        }
-//        catch(OperationNotSupportedException e) {
-//            System.out.println("bad.");
-//        }
-//        window.setContents();
-//    }
+    public static int insertWordsInGlyph(String sentence, Glyph glyph, int position) throws OperationNotSupportedException {
+        for(int i = 0; i < sentence.length(); i++){
+            glyph.insertAtPosition(new Character(sentence.charAt(i)), position);
+            position++;
+        }
+        return position;
+    }
 
 }

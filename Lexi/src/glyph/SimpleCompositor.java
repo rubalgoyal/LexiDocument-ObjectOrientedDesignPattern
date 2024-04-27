@@ -40,13 +40,18 @@ public class SimpleCompositor implements Compositor {
                     child = composition.getChild(position);
                     if (origin == null)
                         origin = child;
-
+                // ask child to set size, based on window
                     child.setSize(window);
+                    // ask child to set position, based on cursor
                     child.getBounds().getStartPoint().setLocation(cursor.x, cursor.y);
+                    // ask child to compose itself , recursivily
                     composition.getChild(position).compose();
+                    // ask parent to adjust cursor, based on child
                     cursor = composition.moveCursor(cursor, child);
                 }
+                // ask parent to adjust itself, based on child
                 composition.adjustBounds(cursor);
+                // check if width or height has changd
                 composition.setSize(window);
                 position++;
             }
