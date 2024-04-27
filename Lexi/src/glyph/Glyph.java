@@ -7,6 +7,7 @@ import java.awt.Point;
 import iterator.*;
 import command.Command;
 import window.Window;
+import visitor.*;
 
 public abstract class Glyph {
 
@@ -58,6 +59,10 @@ public abstract class Glyph {
 
     public Iterator<Glyph> createIterator() {
         return new NullIterator<Glyph>();
+    }
+
+    public void accept(GlyphVisitor v) {
+        //Do nothing
     }
 
 }

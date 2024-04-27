@@ -3,6 +3,7 @@
 package glyph;
 import window.Window;
 import java.awt.Point;
+import visitor.*;
 
 public class Character extends Glyph {
 
@@ -30,6 +31,8 @@ public class Character extends Glyph {
     public void onClick(Point point) {
         //Do Nothing
     }
-
-
+    @Override
+    public void accept(GlyphVisitor v) {
+        v.visit(this);
+    }
 }

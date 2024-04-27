@@ -14,14 +14,20 @@ public class PreorderIterator<T> implements Iterator<T> {
         if (!stack.isEmpty()) {
             Iterator<T> topIterator = stack.peek();
             topIterator.first();
+            // TODO: Need to revisit this logic
+            if(topIterator.isDone())
+                stack.push(topIterator);
         }
     }
 
+    // TODO: Need t recheck if words will not get printed correctly
     @Override
     public void next() {
         if (!stack.isEmpty()) {
-            Iterator<T> topIterator = stack.peek();
-            topIterator.next();
+            Iterator<T> topIterator = stack.pop();
+            topIterator.first();
+            stack.push(topIterator);
+
             while (topIterator.isDone() && !stack.isEmpty()) {
                 stack.pop();
                 if (!stack.isEmpty()) {
