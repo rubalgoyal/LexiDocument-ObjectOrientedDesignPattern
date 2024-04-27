@@ -1,0 +1,284 @@
+
+@startuml
+package glyph {
+  abstract class Glyph {
+'    - parent: Glyph
+'    - bounds: Bounds
+'    + draw(Window): void
+'    + setSize(Window): void
+'    + setParent(Glyph): void
+'    + getParent(): Glyph
+'    + getBounds(): Bounds
+'    + insertAtPosition(Glyph, int): void
+'    + remove(Glyph): void
+'    + getChild(int): Glyph
+'    + compose(): void
+  }
+  abstract class CompositeGlyph {
+'    - children: List<Glyph>
+'    + getChildren(): List<Glyph>
+'    + setChildren(List<Glyph>): void
+'    + draw(Window): void
+'    + insertAtPosition(Glyph, int): void
+'    + remove(Glyph): void
+'    + getChild(int): Glyph
+  }
+
+
+      class Column {
+'          +Column(compositor: Compositor) throws OperationNotSupportedException
+'          +draw(window: Window)
+'          +child(position: int): Glyph
+'          +setSize(window: Window)
+'          +moveCursor(cursor: Point, child: Glyph): Point
+'          +adjustBounds(cursor: Point)
+      }
+
+
+
+      class Row {
+'          +Row(compositor: Compositor)
+'          +draw(window: Window)
+'          +child(position: int): Glyph
+'          +setSize(window: Window)
+'          +moveCursor(cursor: Point, child: Glyph): Point
+'          +adjustBounds(cursor: Point)
+      }
+
+
+
+
+        class Character {
+
+'            -char character
+'            +Character(character: char)
+'            +draw(window: Window)
+'            +setSize(window: Window)
+        }
+
+
+
+        class Rectangle {
+
+'            +Rectangle(width: int, height: int)
+'            +draw(window: Window)
+'            +setSize(window: Window)
+        }
+
+
+
+
+        abstract class Composition {
+'            -Compositor compositor
+'            +setCompositor(compositor: Compositor): void
+'            +getCompositor(): Compositor
+'            +draw(window: Window): void
+'            +reformat(): void
+'            +insert(glyph: Glyph, position: int): void
+'            +remove(glyph: Glyph): void
+'            +compose(): void
+'            +adjustBounds(cursor: Point): void
+'            +moveCursor(cursor: Point, child: Glyph): Point
+        }
+
+            class Bounds {
+'                    - Point upperLeft
+'                    - int width
+'                    - int height
+'                    + Bounds(Point upperLeft, int width, int height)
+'                    + Point getUpperLeft()
+'                    + int getWidth()
+'                    + int getHeight()
+'                    + void setPointDimensions(int width, int height)
+                }
+
+    interface Compositor {
+        {abstract} void compose()
+        {abstract} void setComposition(Composition composition)
+    }
+
+    class SimpleCompositor {
+        - composition: Composition
+        - window: Window
+
+        + SimpleCompositor(Window window)
+        {abstract} void compose()
+        {abstract} void setComposition(Composition composition)
+    }
+    class Embellishment {
+            + moveCursor(cursor: Point, child: Glyph): Point
+            + adjustBounds(cursor: Point): void
+            + setSize(window: Window): void
+            + getChild(): Glyph
+            + insert(glyph: Glyph): void
+            + insert(glyph: Glyph, position: int): void
+            + remove(glyph: Glyph): void
+        }
+        class Border {
+                - thickness: int
+
+                + Border(compositor: Compositor, thickness: int)
+                + draw(window: Window): void
+            }
+
+
+
+        class Scroller {
+            - width: int
+
+            + draw(window: Window): void
+        }
+
+
+
+    Compositor <|.. Glyph : uses
+    Composition <|-- Embellishment
+    Compositor <|.. SimpleCompositor : implements
+    Glyph <|-- CompositeGlyph
+    CompositeGlyph <|-- Composition
+    Composition <|-- Column
+    Composition <|-- Row
+    Glyph <|-- Character
+    Glyph <|-- Rectangle
+    Embellishment <|--- Border
+    Embellishment <|--- Scroller
+    Glyph "1" -- "1" Bounds : has
+
+}
+
+package window {
+    abstract class Window {
+            - windowImp: WindowImp
+            - root: Glyph
+    }
+
+    abstract class WindowFactory {}
+    class ApplicationWindow {}
+    class SwingWindow {}
+    class SwingWindowFactory{}
+    class AwtWindowFactory{}
+    interface WindowImp {}
+    class AwtWindow{}
+
+
+     WindowImp <|-- Window : implements
+     Window <|--  ApplicationWindow
+     WindowImp <|-- SwingWindow
+     WindowImp <|-- AwtWindow
+     SwingWindow <|.. SwingWindowFactory : creates-a
+     AwtWindow <|.. AwtWindowFactory : creates-a
+     WindowFactory <|-- AwtWindowFactory
+     WindowFactory <|-- SwingWindowFactory
+
+}
+
+package lexiwidget {
+    abstract class GUIFactory {
+        {abstract} +labelFactoryMethod(compositor: Compositor): Label
+        {abstract} +buttonFactoryMethod(compositor: Compositor): Button
+        -single: GUIFactory
+        +getInstance(): GUIFactory
+        +createButton(compositor: Compositor): Button
+        +createLabel(compositor: Compositor): Label
+    }
+
+    abstract class Button {
+        {abstract} +draw(window: Window): void
+        {abstract} +setSize(window: Window): void
+    }
+
+    abstract class Label {
+        {abstract} +draw(window: Window): void
+        {abstract} +setSize(window: Window): void
+    }
+
+    class RedFactory {
+        -RedFactory()
+        +getInstance(): RedFactory
+        +labelFactoryMethod(compositor: Compositor): Label
+        +buttonFactoryMethod(compositor: Compositor): Button
+    }
+
+    class GreenFactory {
+        -GreenFactory()
+        +getInstance(): GreenFactory
+        +labelFactoryMethod(compositor: Compositor): Label
+        +buttonFactoryMethod(compositor: Compositor): Button
+    }
+
+    class RedButton {
+        +RedButton(compositor: Compositor)
+        +draw(window: Window): void
+        +setSize(window: Window): void
+    }
+
+    class GreenButton {
+        +GreenButton(compositor: Compositor)
+        +draw(window: Window): void
+        +setSize(window: Window): void
+    }
+
+    class RedLabel {
+        +RedLabel(compositor: Compositor)
+        +draw(window: Window): void
+        +setSize(window: Window): void
+    }
+
+    class GreenLabel {
+        +GreenLabel(compositor: Compositor)
+        +draw(window: Window): void
+        +setSize(window: Window): void
+    }
+
+
+    GUIFactory <|-- RedFactory
+    GUIFactory <|-- GreenFactory
+    Embellishment <|-- Button
+    Embellishment <|-- Label
+    Button <|-- GreenButton
+    Button <|-- RedButton
+    Label <|-- RedLabel
+    Label <|-- GreenLabel
+    GreenButton <|.. GreenFactory
+    GreenLabel <|.. GreenFactory
+    RedButton <|.. RedFactory
+    RedLabel <|.. RedFactory
+}
+package command{
+    abstract class Command {}
+    class CommandHistory{}
+    class DecrementFontSize{}
+    class IncrementFontSize{}
+    class KeyMap{}
+    class Redo{}
+    class Undo{}
+    class SetFontSize{}
+
+}
+    Button -|> Embellishment
+    Button - Command : composition
+    Command <|-- DecrementFontSize
+    Command <|-- IncrementFontSize
+    Command <|-- Redo
+    Command <|-- Undo
+    Command <|-- SetFontSize
+    Command o- Window
+
+
+
+
+
+
+'package glyph {
+'    class Compositor
+'}
+'
+'package window {
+'    class Window
+'}
+'
+'GUIFactory --> Compositor
+'Button --> Window
+'Label --> Window
+@enduml
+

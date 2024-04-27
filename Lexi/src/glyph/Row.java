@@ -1,7 +1,7 @@
 package glyph;
 import window.Window;
 import java.awt.Point;
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class Row extends Composition {
 
@@ -10,7 +10,7 @@ public class Row extends Composition {
         getBounds().setPointDimensions(0, 0);
         Point point = new Point(0, 0);
         getBounds().getStartPoint().setLocation(point);
-        setChildren(new ArrayList<Glyph>());
+        setChildren(new Vector<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
 //        super(compositor);

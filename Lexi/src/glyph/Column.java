@@ -4,6 +4,7 @@ import window.*;
 import javax.naming.OperationNotSupportedException;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Column extends Composition{
 
@@ -12,7 +13,7 @@ public class Column extends Composition{
         getBounds().setPointDimensions(0, 0);
         Point point = new Point(0, 0);
         getBounds().getStartPoint().setLocation(point);
-        setChildren(new ArrayList<Glyph>());
+        setChildren(new Vector<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
     }

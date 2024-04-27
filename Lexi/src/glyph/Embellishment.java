@@ -2,14 +2,14 @@ package glyph;
 
 import javax.naming.OperationNotSupportedException;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.Vector;
 
 import window.Window;
 public class Embellishment extends Composition{
 
     public Embellishment(Glyph contents)  {
 //        setParent(null);
-        ArrayList<Glyph> children = new ArrayList<Glyph>();
+        Vector<Glyph> children = new Vector<Glyph>();
         children.add(contents);
         setChildren(children);
     }

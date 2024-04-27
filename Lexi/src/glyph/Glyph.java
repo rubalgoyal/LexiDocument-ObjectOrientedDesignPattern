@@ -1,11 +1,10 @@
 // Composite Design Pattern, Component Role
 
-
 package glyph;
 
 import javax.naming.OperationNotSupportedException;
 import java.awt.Point;
-
+import iterator.*;
 import command.Command;
 import window.Window;
 
@@ -55,6 +54,10 @@ public abstract class Glyph {
     }
     public Command getCommand(){
         return getCommand();
+    }
+
+    public Iterator<Glyph> createIterator() {
+        return new NullIterator<Glyph>();
     }
 
 }

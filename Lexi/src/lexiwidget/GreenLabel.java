@@ -1,7 +1,7 @@
 package lexiwidget;
 import java.awt.Point;
 import glyph.Compositor;
-import java.util.ArrayList;
+import java.util.Vector;
 import glyph.Glyph;
 import window.Window;
 
@@ -12,7 +12,7 @@ public class GreenLabel extends Label{
         setParent(null);
         getBounds().setPointDimensions(0,0);
         getBounds().getStartPoint().setLocation(new Point(0,0));
-        setChildren(new ArrayList<Glyph>());
+        setChildren(new Vector<Glyph>());
         setCompositor(compositor);
         getCompositor().setComposition(this);
     }

@@ -3,6 +3,7 @@ import window.Window;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Border extends Embellishment{
     private int thickness;
@@ -14,7 +15,7 @@ public class Border extends Embellishment{
         super.getBounds().setPointDimensions(0,0);
         Point point = new Point(0,0);
         super.getBounds().getStartPoint().setLocation(point);
-        super.setChildren(new ArrayList<Glyph>());
+        super.setChildren(new Vector<Glyph>());
         super.setCompositor(compositor);
         super.getCompositor().setComposition(this);
     }

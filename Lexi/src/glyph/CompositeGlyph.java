@@ -5,24 +5,28 @@ package glyph;
 import javax.naming.OperationNotSupportedException;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import iterator.Iterator;
+import iterator.VectorIterator;
 import window.Window;
 
 public abstract class CompositeGlyph extends Glyph{
-    private ArrayList<Glyph> children;
+    private Vector<Glyph> children;
 
     public CompositeGlyph(){
         this.parent = null;
-        this.children = new ArrayList<>();
+        this.children = new Vector<>();
         this.bounds = new Bounds(new Point(0,0), 0, 0);
     }
 
     //Not implemented here
-    protected ArrayList<Glyph> getChildren() {
+    protected Vector<Glyph> getChildren() {
         return children;
     }
 
     //Not implemented here
-    public void setChildren(ArrayList<Glyph> children) {
+    public void setChildren(Vector<Glyph> children) {
         this.children = children;
     }
     // Not implented here
@@ -78,6 +82,11 @@ public abstract class CompositeGlyph extends Glyph{
     }
 
     //We haven't added setSize method.
+
+    @Override
+    public Iterator<Glyph> createIterator(){
+        return new VectorIterator<Glyph>(children);
+    }
 
 }
 
