@@ -1,5 +1,7 @@
 package iterator;
 
+import glyph.Glyph;
+
 import java.util.List;
 
 public class VectorIterator<T> implements Iterator<T> {
@@ -16,8 +18,10 @@ public class VectorIterator<T> implements Iterator<T> {
     }
 
     @Override
-    public void next() {
+    public T next() {
+        T item = array.get(currentIndex);
         currentIndex++;
+        return item;
     }
 
     @Override

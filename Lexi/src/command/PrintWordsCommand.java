@@ -19,6 +19,9 @@ public class PrintWordsCommand extends Command{
             Glyph currentGlyph = iterator.currentItem();
             if (currentGlyph instanceof glyph.Character) {
                 ((glyph.Character) currentGlyph).accept(wordVisitor);
+            } else if (currentGlyph instanceof glyph.Row || currentGlyph instanceof glyph.Column) {
+                visitAllChildren(currentGlyph,wordVisitor);
+
             }
             iterator.next();
         }
@@ -33,11 +36,27 @@ public class PrintWordsCommand extends Command{
 
     @Override
     public Command cloneCommand() {
-        return null;
+        return new PrintWordsCommand(this.window);
     }
 
     @Override
     public boolean isUndoable() {
         return false;
+    }
+
+    private void visitAllChildren(Glyph glyph, WordVisitor wordVisitor) {
+        if (glyph instanceof glyph.Character) {
+            ((glyph.Character) glyph).accept(wordVisitor);
+            return;
+        }
+        // Recursively visit children
+        else if(glyph instanceof glyph.Row || glyph instanceof glyph.Column){
+            Iterator<Glyph> iterator = glyph.createIterator();
+            while (!iterator.isDone()) {
+                visitAllChildren(iterator.next(), wordVisitor);
+            }
+        }
+
+
     }
 }

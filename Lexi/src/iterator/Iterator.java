@@ -2,7 +2,7 @@ package iterator;
 
 public interface Iterator<T> {
     void first();
-    void next();
+    T next();
     boolean isDone();
     T currentItem();
 }

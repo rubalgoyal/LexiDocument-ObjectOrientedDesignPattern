@@ -22,7 +22,7 @@ public class PreorderIterator<T> implements Iterator<T> {
 
     // TODO: Need t recheck if words will not get printed correctly
     @Override
-    public void next() {
+    public T next() {
         if (!stack.isEmpty()) {
             Iterator<T> topIterator = stack.pop();
             topIterator.first();
@@ -36,6 +36,7 @@ public class PreorderIterator<T> implements Iterator<T> {
                 }
             }
         }
+        return null;
     }
 
     @Override

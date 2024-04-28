@@ -75,7 +75,7 @@ public class test {
         try{
 
             insertWordsInGlyph("Hi Smith !! How are you doing?", row1, 0);
-            insertWordsInGlyph("I am doing great", row2, 0);
+            insertWordsInGlyph("I am doing great.", row2, 0);
             insertWordsInGlyph("I am enjoying OODP!", row3, 0);
 
             column.insertAtPosition(row1, 0);

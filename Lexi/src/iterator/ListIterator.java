@@ -16,8 +16,10 @@ public class ListIterator<T> implements Iterator<T> {
     }
 
     @Override
-    public void next() {
+    public T next() {
+        T item = list.get(currentIndex);
         currentIndex++;
+        return item;
     }
 
     @Override

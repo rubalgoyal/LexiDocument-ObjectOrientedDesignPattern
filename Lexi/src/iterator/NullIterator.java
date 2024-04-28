@@ -7,8 +7,8 @@ public class NullIterator<T> implements Iterator<T>{
     }
 
     @Override
-    public void next() {
-
+    public T next() {
+        return null;
     }
 
     @Override

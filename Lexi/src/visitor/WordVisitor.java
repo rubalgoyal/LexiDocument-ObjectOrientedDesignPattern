@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class WordVisitor implements GlyphVisitor{
     private StringBuilder wordBuilder = new StringBuilder();
-    private final ArrayList<Character> separators = new ArrayList<>(Arrays.asList(' ', '|', ',', '!', '-', '.'));
+    private final ArrayList<Character> separators = new ArrayList<>(Arrays.asList(' ', '|', ',', '!', '-', '.','?', '@',' '));
     // Initialize the List with separator characters
 //    separators.pus(' ');
 //    separators.add('|');
@@ -29,11 +29,9 @@ public class WordVisitor implements GlyphVisitor{
 
         if (!this.separators.contains(currentChar)) {
             wordBuilder.append(currentChar);
-        } else {
-            // Word boundary reached; add a space and reset the builder
-            if (wordBuilder.length() > 0) {
-                wordBuilder.append(' ');
-            }
+        }
+        else {
+            wordBuilder.append(' ');
         }
 
     }
