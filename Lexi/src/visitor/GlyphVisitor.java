@@ -1,3 +1,6 @@
+// Visitor(331) Pattren
+
+
 package visitor;
 
 import glyph.Glyph;

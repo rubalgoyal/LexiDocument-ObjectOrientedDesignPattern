@@ -1,3 +1,6 @@
+// Visitor(331) Pattren
+// Concrete Visitor
+
 package visitor;
 
 import glyph.*;
@@ -7,6 +10,7 @@ import java.util.Arrays;
 
 public class WordVisitor implements GlyphVisitor{
     private StringBuilder wordBuilder = new StringBuilder();
+    private boolean isNewWord = false;
     private final ArrayList<Character> separators = new ArrayList<>(Arrays.asList(' ', '|', ',', '!', '-', '.','?', '@',' '));
     // Initialize the List with separator characters
 //    separators.pus(' ');
@@ -27,11 +31,14 @@ public class WordVisitor implements GlyphVisitor{
         // Assume that non-alphanumeric characters indicate word boundaries
         char currentChar = e.getChar();
 
+
         if (!this.separators.contains(currentChar)) {
             wordBuilder.append(currentChar);
+            isNewWord = true;
         }
-        else {
-            wordBuilder.append(' ');
+        else if (isNewWord) {
+            wordBuilder.append('\n');
+            isNewWord = false;
         }
 
     }

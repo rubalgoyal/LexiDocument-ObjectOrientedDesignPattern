@@ -1,3 +1,6 @@
+// Iterrator(257) Pattren
+// Concrete Subclass
+
 package iterator;
 
 public class NullIterator<T> implements Iterator<T>{

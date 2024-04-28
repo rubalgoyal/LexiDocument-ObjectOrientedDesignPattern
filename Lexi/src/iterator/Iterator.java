@@ -1,3 +1,5 @@
+// Iterator(257) Pattren
+
 package iterator;
 
 public interface Iterator<T> {

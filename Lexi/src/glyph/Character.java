@@ -1,4 +1,5 @@
 // Uses Composite Design Pattern
+// ConcreteElement
 
 package glyph;
 

@@ -1,4 +1,4 @@
-// Composite Design Pattern, Component Role
+// Composite Design Pattern, Component Role, Element
 
 package glyph;
 
