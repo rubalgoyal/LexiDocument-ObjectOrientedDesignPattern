@@ -25,9 +25,9 @@ public class Row extends Composition {
         getBounds().setPointDimensions(cursor.x - getBounds().getStartPoint().x,getBounds().getHeight());
     }
 
-    public Glyph getChild(int position) {
-        return super.getChild(position);
-    }
+//    public Glyph getChild(int position) {
+//        return super.getChild(position);
+//    }
 
     public void setSize(Window window) {
         int width = 0;

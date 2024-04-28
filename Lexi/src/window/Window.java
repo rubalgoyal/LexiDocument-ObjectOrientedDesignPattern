@@ -13,7 +13,7 @@ public abstract class Window {
     protected WindowImp windowImp;
     protected Glyph root = null;
 
-    private KeyMap keyMap = new KeyMap();
+    protected KeyMap keyMap = new KeyMap();
 
     public void drawCharacter(char c, int x, int y) {
         windowImp.drawCharacter(c, x, y);
@@ -35,11 +35,6 @@ public abstract class Window {
     public void setContents(Glyph root) {
         this.root = root;
         windowImp.setContents(root);
-//        this.root = root;
-//        windowImp.setContents();
-//        keyMap.put('a', new IncrementFontSize("Incrementing font size"));
-//        keyMap.put('b', new DecrementFontSize("Decrementing font size "));
-
     }
 
     public void addBorder(int x1, int y1, int x2, int y2, int width) {
@@ -75,6 +70,7 @@ public abstract class Window {
 //            System.out.println(command.getShortcut());
             Command copy = command.cloneCommand();
             copy.execute();
+            //if executed command is undoable only then put it into command history
             if(copy.isUndoable()){
                 CommandHistory.getInstance().add(copy); //TODO: commented to test
             }
@@ -95,6 +91,10 @@ public abstract class Window {
     public void repaint(){
         root.compose();
         windowImp.repaint();
+    }
+
+    public Glyph getRoot(){
+        return this.root;
     }
 
 }

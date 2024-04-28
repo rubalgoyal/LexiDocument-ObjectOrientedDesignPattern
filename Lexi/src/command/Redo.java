@@ -16,7 +16,7 @@ public class Redo extends Command {
 
     @Override
     public Command cloneCommand() {
-        return null;
+        return new Redo();
     }
 
     @Override

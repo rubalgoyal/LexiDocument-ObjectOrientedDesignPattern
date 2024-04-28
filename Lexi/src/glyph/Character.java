@@ -1,6 +1,8 @@
 // Uses Composite Design Pattern
 
 package glyph;
+
+
 import window.Window;
 import java.awt.Point;
 import visitor.*;
@@ -15,6 +17,10 @@ public class Character extends Glyph {
         getBounds().getStartPoint().setLocation(new Point(0, 0));
         this.character = character;
 
+    }
+
+    public char getChar(){
+        return this.character;
     }
 
     @Override

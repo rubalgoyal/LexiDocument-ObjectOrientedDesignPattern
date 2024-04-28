@@ -66,7 +66,7 @@ public abstract class CompositeGlyph extends Glyph{
     }
 
     // OK
-    public Glyph getChild(int position) {
+    protected Glyph getChild(int position) {
         if(position >= children.size() || position < 0)
             throw new IndexOutOfBoundsException("No child at position: out of bounds");
         return children.get(position);

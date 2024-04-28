@@ -50,9 +50,9 @@ public abstract class Glyph {
 
     public void compose(){}
 
-    public Glyph child(int position) throws OperationNotSupportedException, IndexOutOfBoundsException{
-        throw new OperationNotSupportedException("This Glyph can not have children");
-    }
+//    public Glyph child(int position) throws OperationNotSupportedException, IndexOutOfBoundsException{
+//        throw new OperationNotSupportedException("This Glyph can not have children");
+//    }
     public Command getCommand(){
         return getCommand();
     }

@@ -22,10 +22,10 @@ public class Column extends Composition{
         super.draw(window);
     }
 
-    public Glyph getChild(int position) {
-
-        return super.getChild(position);
-    }
+//    public Glyph getChild(int position) {
+//
+//        return super.getChild(position);
+//    }
 
     public void setSize(Window window){
         int width = 0;

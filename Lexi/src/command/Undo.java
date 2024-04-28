@@ -1,5 +1,5 @@
 package command;
-import window.Window;
+
 
 public class Undo extends Command {
 
@@ -15,7 +15,7 @@ public class Undo extends Command {
 
     @Override
     public Command cloneCommand() {
-        return null;
+        return new Undo();
     }
     @Override
     public boolean isUndoable(){

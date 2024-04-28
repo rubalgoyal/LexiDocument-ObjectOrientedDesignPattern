@@ -1,16 +1,40 @@
 package visitor;
 
 import glyph.*;
-import glyph.Character;
+import java.lang.Character;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WordVisitor implements GlyphVisitor{
+    private StringBuilder wordBuilder = new StringBuilder();
+    private final ArrayList<Character> separators = new ArrayList<>(Arrays.asList(' ', '|', ',', '!', '-', '.'));
+    // Initialize the List with separator characters
+//    separators.pus(' ');
+//    separators.add('|');
+//    separators.add(',');
+//    separators.add('!');
+//    separators.add('-');
+//    separators.add('.');
+
+
     @Override
-    public void visit(Glyph e) {
+    public void visit(glyph.Glyph e) {
 
     }
 
     @Override
-    public void visit(Character e) {
+    public void visit(glyph.Character e) {
+        // Assume that non-alphanumeric characters indicate word boundaries
+        char currentChar = e.getChar();
+
+        if (!this.separators.contains(currentChar)) {
+            wordBuilder.append(currentChar);
+        } else {
+            // Word boundary reached; add a space and reset the builder
+            if (wordBuilder.length() > 0) {
+                wordBuilder.append(' ');
+            }
+        }
 
     }
 
@@ -27,5 +51,9 @@ public class WordVisitor implements GlyphVisitor{
     @Override
     public void visit(Column e) {
 
+    }
+
+    public String getString(){
+        return this.wordBuilder.toString();
     }
 }
