@@ -1,16 +1,12 @@
 ### Name: Rubal Goyal
 ### Course: CS572 - Object Oriented Design Patterns
-### Assignment: HW5
+### Assignment: HW6
 
-I found this assignment very challenging. Getting the Red/Green buttons to 
-enable changing the font sizes of the button texts,
-is proving to be difficult. I assumed the glyps automatically set 
-the sizes following chain of command during my development. I have created the buttons and 
-added glyphs as well. My output still not showing the buttons.
+Thanks for the feedback of the previous assignment. It took 2-3 days to fix the issue, but now everything is working fine for HW5. After reading the slides and book, I understood how I need to implement the Iterator and Visitor Pattren. I faced challanges to implement both the pattrens, but at end everything went pretty well. 
 
 #### UML File 
 
-My UML file is in Lexi folder with name __UML_HW5.png__.
+My UML file is in Lexi folder with name __UML_HW6.png__.
 
 ## Instruction to compile and run
 
@@ -22,6 +18,8 @@ javac -d . -cp . $(find . -name "*.java")
 ```
 java Main
 ```
+3. To Print all the words, use `w` key from keyboard in Lexi window.
+
 ## My Sample output
 
 My Output  is in Lexi folder with name __Hw_Output.png__.

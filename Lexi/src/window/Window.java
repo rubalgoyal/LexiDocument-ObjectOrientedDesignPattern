@@ -56,7 +56,7 @@ public abstract class Window {
             root.draw(this);
         }
     }
-    //TODO: This one needs to written in Composition
+
     public void click(int x, int y){
         Point point = new Point(x,y);
         root.onClick(point);
@@ -72,7 +72,7 @@ public abstract class Window {
             copy.execute();
             //if executed command is undoable only then put it into command history
             if(copy.isUndoable()){
-                CommandHistory.getInstance().add(copy); //TODO: commented to test
+                CommandHistory.getInstance().add(copy);
             }
             root.compose();
             windowImp.repaint();

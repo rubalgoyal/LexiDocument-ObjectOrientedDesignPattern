@@ -93,32 +93,17 @@ package glyph {
                 }
 
     interface Compositor {
-        {abstract} void compose()
-        {abstract} void setComposition(Composition composition)
+
     }
 
     class SimpleCompositor {
-        - composition: Composition
-        - window: Window
 
-        + SimpleCompositor(Window window)
-        {abstract} void compose()
-        {abstract} void setComposition(Composition composition)
     }
     class Embellishment {
-            + moveCursor(cursor: Point, child: Glyph): Point
-            + adjustBounds(cursor: Point): void
-            + setSize(window: Window): void
-            + getChild(): Glyph
-            + insert(glyph: Glyph): void
-            + insert(glyph: Glyph, position: int): void
-            + remove(glyph: Glyph): void
+
         }
         class Border {
-                - thickness: int
 
-                + Border(compositor: Compositor, thickness: int)
-                + draw(window: Window): void
             }
 
 
@@ -173,76 +158,13 @@ package window {
 }
 
 package lexiwidget {
-    abstract class GUIFactory {
-        {abstract} +labelFactoryMethod(compositor: Compositor): Label
-        {abstract} +buttonFactoryMethod(compositor: Compositor): Button
-        -single: GUIFactory
-        +getInstance(): GUIFactory
-        +createButton(compositor: Compositor): Button
-        +createLabel(compositor: Compositor): Label
-    }
 
     abstract class Button {
-        {abstract} +draw(window: Window): void
-        {abstract} +setSize(window: Window): void
-    }
-
-    abstract class Label {
-        {abstract} +draw(window: Window): void
-        {abstract} +setSize(window: Window): void
-    }
-
-    class RedFactory {
-        -RedFactory()
-        +getInstance(): RedFactory
-        +labelFactoryMethod(compositor: Compositor): Label
-        +buttonFactoryMethod(compositor: Compositor): Button
-    }
-
-    class GreenFactory {
-        -GreenFactory()
-        +getInstance(): GreenFactory
-        +labelFactoryMethod(compositor: Compositor): Label
-        +buttonFactoryMethod(compositor: Compositor): Button
-    }
-
-    class RedButton {
-        +RedButton(compositor: Compositor)
-        +draw(window: Window): void
-        +setSize(window: Window): void
-    }
-
-    class GreenButton {
-        +GreenButton(compositor: Compositor)
-        +draw(window: Window): void
-        +setSize(window: Window): void
-    }
-
-    class RedLabel {
-        +RedLabel(compositor: Compositor)
-        +draw(window: Window): void
-        +setSize(window: Window): void
-    }
-
-    class GreenLabel {
-        +GreenLabel(compositor: Compositor)
-        +draw(window: Window): void
-        +setSize(window: Window): void
     }
 
 
-    GUIFactory <|-- RedFactory
-    GUIFactory <|-- GreenFactory
     Embellishment <|-- Button
-    Embellishment <|-- Label
-    Button <|-- GreenButton
-    Button <|-- RedButton
-    Label <|-- RedLabel
-    Label <|-- GreenLabel
-    GreenButton <|.. GreenFactory
-    GreenLabel <|.. GreenFactory
-    RedButton <|.. RedFactory
-    RedLabel <|.. RedFactory
+
 }
 package command{
     abstract class Command {}
@@ -253,6 +175,7 @@ package command{
     class Redo{}
     class Undo{}
     class SetFontSize{}
+    class PrintWordsCommand{}
 
 }
     Button -|> Embellishment
@@ -262,7 +185,40 @@ package command{
     Command <|-- Redo
     Command <|-- Undo
     Command <|-- SetFontSize
+    Command <|---PrintWordsCommand
     Command o- Window
+
+package iterator{
+    Interface Iterator<T> {
+    }
+
+    class NullIterator<T> {
+
+    }
+    class PreorderIterator<T> {
+    }
+    class VectorIterator<T> {
+
+    }
+    class ListIterator<T> {
+
+    }
+}
+
+    Iterator <|...NullIterator
+    Iterator <|...VectorIterator
+    Iterator <|...PreorderIterator
+    Iterator <|... ListIterator
+    Iterator <|--- Glyph : associates
+    Iterator <|--- CompositeGlyph : uses
+
+package visitor{
+    Interface GlyphVisitor {}
+    class WordVisitor{}
+}
+    GlyphVisitor <|...WordVisitor
+    GlyphVisitor <|...Glyph : uses
+    WordVisitor <|--- PrintWordsCommand
 
 
 

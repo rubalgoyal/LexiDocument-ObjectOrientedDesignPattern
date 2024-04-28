@@ -17,13 +17,12 @@ public class PreorderIterator<T> implements Iterator<T> {
         if (!stack.isEmpty()) {
             Iterator<T> topIterator = stack.peek();
             topIterator.first();
-            // TODO: Need to revisit this logic
             if(topIterator.isDone())
                 stack.push(topIterator);
         }
     }
 
-    // TODO: Need t recheck if words will not get printed correctly
+
     @Override
     public T next() {
         if (!stack.isEmpty()) {
